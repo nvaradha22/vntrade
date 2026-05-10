@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Submit a commodity trade mandate to VN Trade. Buy-side or sell-side across Coal, Fertilizers, Metals and Agri. All mandates reviewed within 48 hours.">
+<title>Submit a Mandate — VN Trade</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&family=Noto+Sans+Arabic:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+
+/* ── ENGAGE LAYOUT ── */
+.engage-section { background: var(--navy); padding: 96px 56px; }
+.engage-inner   { max-width: var(--max-w); margin: 0 auto; }
+
+/* Trust tiles row */
+.engage-meta {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 16px; margin-bottom: 64px;
+}
+.meta-tile {
+  border: 1px solid var(--border); background: var(--navy-card);
+  padding: 24px 22px; display: flex; align-items: flex-start; gap: 14px;
+}
+.meta-icon { font-size: 1.2rem; flex-shrink: 0; margin-top: 2px; }
+.meta-tile h4 {
+  font-size: .62rem; letter-spacing: .22em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 6px;
+}
+.meta-tile p { font-size: .81rem; color: var(--white-dim); line-height: 1.6; }
+
+/* ── TWO-COLUMN LAYOUT ── */
+.engage-layout {
+  display: grid; grid-template-columns: 1fr 360px; gap: 48px; align-items: start;
+}
+
+/* ── FORM CARD ── */
+.form-card {
+  border: 1px solid var(--border); background: var(--navy-card); padding: 0;
+}
+.form-card-header {
+  padding: 32px 36px 0;
+}
+.form-card-title {
+  font-family: var(--font-display); font-size: 1.5rem; font-weight: 400;
+  color: var(--white); margin-bottom: 8px;
+}
+.form-card-sub {
+  font-size: .83rem; color: var(--white-dim); line-height: 1.7; margin-bottom: 0;
+}
+
+/* Tabs */
+.form-tabs {
+  display: flex; border-bottom: 1px solid var(--border);
+  margin: 28px 0 0; padding: 0 36px;
+}
+.tab-btn {
+  font-family: var(--font-body); font-size: .72rem; font-weight: 500;
+  letter-spacing: .16em; text-transform: uppercase;
+  background: transparent; border: none; color: var(--white-dim);
+  padding: 14px 28px 14px 0; cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: color .2s, border-color .2s; margin-bottom: -1px;
+  margin-right: 8px;
+}
+.tab-btn.active { color: var(--white); border-bottom-color: var(--gold); }
+.tab-btn:hover  { color: var(--white); }
+
+.tab-content { display: none; padding: 36px; }
+.tab-content.active { display: block; }
+
+/* Form fields */
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.form-group { display: flex; flex-direction: column; gap: 8px; }
+.form-group.full { grid-column: 1 / -1; }
+.form-label {
+  font-size: .62rem; letter-spacing: .22em; text-transform: uppercase; color: var(--gold);
+}
+.form-input,
+.form-select,
+.form-textarea {
+  background: var(--navy); border: 1px solid var(--border);
+  color: var(--white); font-family: var(--font-body);
+  font-size: .87rem; font-weight: 300;
+  padding: 12px 16px; transition: border-color .2s; outline: none;
+  width: 100%; -webkit-appearance: none;
+}
+.form-input::placeholder { color: rgba(242,239,232,.25); }
+.form-input:focus,
+.form-select:focus,
+.form-textarea:focus { border-color: var(--gold); }
+.form-select { cursor: pointer; }
+.form-select option { background: var(--navy-mid); }
+.form-textarea { resize: vertical; min-height: 110px; }
+
+.form-submit {
+  margin-top: 28px; display: flex; align-items: center;
+  gap: 20px; flex-wrap: wrap;
+}
+.form-submit .btn-primary {
+  padding: 14px 36px; font-size: .72rem;
+  letter-spacing: .2em; cursor: pointer; border: none;
+}
+.form-note {
+  font-size: .76rem; color: var(--white-dim); line-height: 1.65; max-width: 360px;
+}
+
+/* ── SIDEBAR ── */
+.engage-sidebar { display: flex; flex-direction: column; gap: 16px; }
+
+.info-tile {
+  border: 1px solid var(--border); background: var(--navy-card); padding: 28px 28px;
+}
+.info-tile h4 {
+  font-size: .62rem; letter-spacing: .22em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 14px;
+}
+.info-tile a {
+  font-family: var(--font-display); font-size: 1.15rem; font-weight: 400;
+  color: var(--white); display: block; margin-bottom: 6px;
+  transition: color .2s;
+}
+.info-tile a:hover { color: var(--gold-light); }
+.info-tile > p {
+  font-size: .8rem; color: var(--white-dim); line-height: 1.65;
+}
+
+.trust-items { display: flex; flex-direction: column; gap: 0; }
+.trust-item {
+  display: flex; align-items: flex-start; gap: 12px;
+  font-size: .82rem; color: var(--white-dim); line-height: 1.6;
+  padding: 9px 0; border-bottom: 1px solid var(--border-dim);
+}
+.trust-item:last-child { border-bottom: none; }
+.trust-item::before {
+  content: ''; flex-shrink: 0; width: 4px; height: 4px;
+  border-radius: 50%; background: var(--gold); margin-top: 6px;
+}
+
+/* ── FAQ ── */
+.faq-section {
+  margin-top: 72px; padding-top: 56px; border-top: 1px solid var(--border);
+  max-width: 800px;
+}
+.faq-section .section-label { margin-bottom: 12px; }
+.faq-section h2 {
+  font-family: var(--font-display); font-size: clamp(1.6rem,2.8vw,2.2rem);
+  font-weight: 300; color: var(--white); margin-bottom: 36px; line-height: 1.12;
+}
+.faq-list {}
+.faq-item { border-bottom: 1px solid var(--border); }
+.faq-q {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 18px 0; cursor: pointer;
+  font-size: .9rem; font-weight: 400; color: var(--white-dim);
+  transition: color .2s; user-select: none; list-style: none; gap: 16px;
+}
+.faq-q:hover { color: var(--white); }
+.faq-toggle {
+  flex-shrink: 0; width: 22px; height: 22px;
+  border: 1px solid var(--border); display: flex;
+  align-items: center; justify-content: center;
+  font-size: 1rem; color: var(--gold-light);
+  transition: transform .3s, background .2s; line-height: 1;
+}
+.faq-item.open .faq-q { color: var(--white); }
+.faq-item.open .faq-toggle { background: var(--gold-faint); transform: rotate(45deg); }
+.faq-a {
+  max-height: 0; overflow: hidden;
+  transition: max-height .45s ease, padding .3s ease;
+}
+.faq-item.open .faq-a { max-height: 320px; padding-bottom: 18px; }
+.faq-a p { font-size: .85rem; color: var(--white-dim); line-height: 1.85; }
+
+/* ── RESPONSIVE ── */
+@media(max-width:1100px){
+  .engage-meta { grid-template-columns: 1fr 1fr; }
+  .engage-layout { grid-template-columns: 1fr; }
+  .engage-sidebar { display: grid; grid-template-columns: 1fr 1fr; }
+}
+@media(max-width:700px){
+  .engage-section { padding: 72px 24px; }
+  .engage-meta { grid-template-columns: 1fr; }
+  .engage-sidebar { grid-template-columns: 1fr; }
+  .form-grid { grid-template-columns: 1fr; }
+  .tab-content { padding: 28px 24px; }
+  .form-card-header { padding: 28px 24px 0; }
+  .form-tabs { padding: 0 24px; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="logo">
+    <span class="logo-vn">VN</span><div class="logo-rule"></div><span class="logo-trade">Trade</span>
+  </a>
+  <div class="nav-right">
+    <ul class="nav-links">
+      <li><a href="portfolio.html" data-t="nav_portfolio">Portfolio</a></li>
+      <li><a href="process.html"   data-t="nav_process">Process</a></li>
+      <li><a href="about.html"     data-t="nav_about">About</a></li>
+      <li><a href="engage.html" class="nav-cta active" data-t="nav_cta">Submit Mandate</a></li>
+    </ul>
+    <div class="lang-switcher">
+      <button class="lang-btn active" data-lang="en">EN</button>
+      <button class="lang-btn" data-lang="ar">AR</button>
+      <button class="lang-btn" data-lang="nl">NL</button>
+    </div>
+  </div>
+</nav>
+
+<div class="page-header">
+  <div class="inner">
+    <div class="section-label">Engage</div>
+    <h1>Submit a <em>Mandate</em></h1>
+    <p>All mandates are handled in strict confidence. Principal identities are not disclosed to any counterparty without prior written consent.</p>
+  </div>
+</div>
+
+<section class="engage-section">
+  <div class="engage-inner">
+
+    <!-- TRUST META TILES -->
+    <div class="engage-meta">
+      <div class="meta-tile animate">
+        <span class="meta-icon">🔒</span>
+        <div><h4>Confidential</h4><p>Your identity and mandate details are held in strict confidence under NDA until mutual consent is given.</p></div>
+      </div>
+      <div class="meta-tile animate">
+        <span class="meta-icon">⏱</span>
+        <div><h4>48-Hour Review</h4><p>All mandates reviewed within 48 hours. Qualified mandates receive a response with clear next steps.</p></div>
+      </div>
+      <div class="meta-tile animate">
+        <span class="meta-icon">⚖️</span>
+        <div><h4>No Commitment</h4><p>Submitting a mandate is not a binding commitment. Engagement terms are agreed separately in writing.</p></div>
+      </div>
+      <div class="meta-tile animate">
+        <span class="meta-icon">🌐</span>
+        <div><h4>All Corridors</h4><p>Coal, Fertilizers, Metals and Agri. GCC, India, Southeast Asia and European corridors.</p></div>
+      </div>
+    </div>
+
+    <!-- TWO-COLUMN -->
+    <div class="engage-layout">
+
+      <!-- FORM CARD -->
+      <div class="form-card animate">
+        <div class="form-card-header">
+          <div class="form-card-title">Trade Mandate Form</div>
+          <p class="form-card-sub">Complete the form with your trade requirement. All information is treated in strict confidence and is not shared with any third party without your prior consent.</p>
+        </div>
+
+        <div class="form-tabs">
+          <button class="tab-btn active" onclick="switchTab('buy')">Buy-Side Mandate</button>
+          <button class="tab-btn"        onclick="switchTab('sell')">Sell-Side Mandate</button>
+        </div>
+
+        <!-- BUY -->
+        <div class="tab-content active" id="tab-buy">
+          <form action="mailto:info@vntrade.in" method="POST" enctype="text/plain">
+            <div class="form-grid">
+              <div class="form-group">
+                <label class="form-label">First Name *</label>
+                <input class="form-input" type="text" name="firstName" placeholder="First name" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Last Name *</label>
+                <input class="form-input" type="text" name="lastName" placeholder="Last name" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Company / Organisation *</label>
+                <input class="form-input" type="text" name="company" placeholder="Company name" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Your Role</label>
+                <input class="form-input" type="text" name="role" placeholder="e.g. Procurement Manager">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Business Email *</label>
+                <input class="form-input" type="email" name="email" placeholder="you@company.com" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Country of Operation</label>
+                <input class="form-input" type="text" name="country" placeholder="Country">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Commodity *</label>
+                <select class="form-select" name="commodity" required>
+                  <option value="" disabled selected>Select commodity</option>
+                  <option>Coal — Thermal</option>
+                  <option>Fertilizers — Urea</option>
+                  <option>Fertilizers — DAP</option>
+                  <option>Fertilizers — MOP / NPK</option>
+                  <option>Metals — Iron Ore</option>
+                  <option>Metals — HRC / Steel Products</option>
+                  <option>Metals — Steel Scrap</option>
+                  <option>Metals — Copper</option>
+                  <option>Metals — Aluminium</option>
+                  <option>Agri — Pulses / Lentils</option>
+                  <option>Agri — Wheat / Corn / Grains</option>
+                  <option>Agri — Raw Sugar</option>
+                  <option>Other</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Volume (MT) *</label>
+                <input class="form-input" type="text" name="quantity" placeholder="e.g. 50,000 MT" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Quality / Grade Specification</label>
+                <input class="form-input" type="text" name="specification" placeholder="e.g. GAR 5,500 · 46% N · Grade A">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Origin Preference</label>
+                <input class="form-input" type="text" name="origin" placeholder="e.g. Indonesia, South Africa, Any">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Destination Port *</label>
+                <input class="form-input" type="text" name="destination" placeholder="e.g. Mundra, Vizag, Dubai, Rotterdam" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Required Timeline</label>
+                <input class="form-input" type="text" name="timeline" placeholder="e.g. Q3 2025, Within 60 days, Spot">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Preferred Payment Terms</label>
+                <select class="form-select" name="payment">
+                  <option value="" disabled selected>Select payment preference</option>
+                  <option>LC at Sight</option>
+                  <option>LC — Usance / Deferred</option>
+                  <option>DP (Documents against Payment)</option>
+                  <option>DA (Documents against Acceptance)</option>
+                  <option>Open to Discussion</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Buyer Type</label>
+                <select class="form-select" name="role_type">
+                  <option value="" disabled selected>Select your role</option>
+                  <option>End-User / Consumer</option>
+                  <option>Trader / Re-seller</option>
+                  <option>State / Public Buyer</option>
+                  <option>Agricultural Cooperative</option>
+                  <option>Other</option>
+                </select>
+              </div>
+              <div class="form-group full">
+                <label class="form-label">Trade Requirement *</label>
+                <textarea class="form-textarea" name="notes" placeholder="Describe your requirement: commodity, specification, basis (FOB/CFR/CIF), timeline, any specific conditions or context..." required></textarea>
+              </div>
+            </div>
+            <div class="form-submit">
+              <button type="submit" class="btn-primary">Submit Buy Mandate →</button>
+              <p class="form-note">By submitting this form you confirm that the information provided is accurate and that you consent to VN Trade reviewing your mandate under NDA.</p>
+            </div>
+          </form>
+        </div>
+
+        <!-- SELL -->
+        <div class="tab-content" id="tab-sell">
+          <form action="mailto:info@vntrade.in" method="POST" enctype="text/plain">
+            <div class="form-grid">
+              <div class="form-group">
+                <label class="form-label">First Name *</label>
+                <input class="form-input" type="text" name="firstName" placeholder="First name" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Last Name *</label>
+                <input class="form-input" type="text" name="lastName" placeholder="Last name" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Company / Organisation *</label>
+                <input class="form-input" type="text" name="company" placeholder="Company name" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Your Role</label>
+                <input class="form-input" type="text" name="role" placeholder="e.g. Sales Director">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Business Email *</label>
+                <input class="form-input" type="email" name="email" placeholder="you@company.com" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Country of Operation</label>
+                <input class="form-input" type="text" name="country" placeholder="Country">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Commodity *</label>
+                <select class="form-select" name="commodity" required>
+                  <option value="" disabled selected>Select commodity</option>
+                  <option>Coal — Thermal</option>
+                  <option>Fertilizers — Urea</option>
+                  <option>Fertilizers — DAP</option>
+                  <option>Fertilizers — MOP / NPK</option>
+                  <option>Metals — Iron Ore</option>
+                  <option>Metals — HRC / Steel Products</option>
+                  <option>Metals — Steel Scrap</option>
+                  <option>Metals — Copper</option>
+                  <option>Metals — Aluminium</option>
+                  <option>Agri — Pulses / Lentils</option>
+                  <option>Agri — Wheat / Corn / Grains</option>
+                  <option>Agri — Raw Sugar</option>
+                  <option>Other</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Volume Available (MT) *</label>
+                <input class="form-input" type="text" name="quantity" placeholder="e.g. 30,000 MT" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Quality / Grade Specification *</label>
+                <input class="form-input" type="text" name="specification" placeholder="e.g. GAR 4,800 · HMS 1&2 80:20 · 46% N" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Origin (Port of Loading) *</label>
+                <input class="form-input" type="text" name="origin" placeholder="Country and port of loading" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Preferred Incoterm</label>
+                <select class="form-select" name="incoterm">
+                  <option value="" disabled selected>Select incoterm</option>
+                  <option>FOB</option>
+                  <option>CFR</option>
+                  <option>CIF</option>
+                  <option>FAS</option>
+                  <option>Open to Discussion</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Destination Flexibility</label>
+                <input class="form-input" type="text" name="destination" placeholder="e.g. India / GCC / Any, or specific ports">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Available From / Timeline</label>
+                <input class="form-input" type="text" name="timeline" placeholder="e.g. Q3 2025, Prompt, Spot">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Preferred Payment Terms</label>
+                <select class="form-select" name="payment">
+                  <option value="" disabled selected>Select payment preference</option>
+                  <option>LC at Sight</option>
+                  <option>LC — Usance</option>
+                  <option>DP</option>
+                  <option>TT / Wire Transfer</option>
+                  <option>Open to Discussion</option>
+                </select>
+              </div>
+              <div class="form-group full">
+                <label class="form-label">Additional Notes *</label>
+                <textarea class="form-textarea" name="notes" placeholder="Mill certificates, inspection arrangements, any conditions or requirements from your side, recurring availability..." required></textarea>
+              </div>
+            </div>
+            <div class="form-submit">
+              <button type="submit" class="btn-primary">Submit Sell Mandate →</button>
+              <p class="form-note">By submitting this form you confirm that the information provided is accurate and that you consent to VN Trade reviewing your mandate under NDA.</p>
+            </div>
+          </form>
+        </div>
+      </div><!-- /form-card -->
+
+      <!-- SIDEBAR -->
+      <div class="engage-sidebar animate">
+
+        <div class="info-tile">
+          <h4>Direct Contact</h4>
+          <a href="mailto:info@vntrade.in">info@vntrade.in</a>
+          <p>For mandates, general enquiries and existing engagement follow-ups. Response within one business day.</p>
+        </div>
+
+        <div class="info-tile">
+          <h4>LinkedIn</h4>
+          <a href="https://www.linkedin.com/company/vntrade/" target="_blank" rel="noopener">VN Trade on LinkedIn</a>
+          <p>Follow for market signals and corridor intelligence updates.</p>
+        </div>
+
+        <div class="info-tile">
+          <h4>What to Include</h4>
+          <div class="trust-items">
+            <div class="trust-item">Commodity and grade / specification</div>
+            <div class="trust-item">Volume in metric tonnes</div>
+            <div class="trust-item">Trade basis — FOB, CFR or CIF</div>
+            <div class="trust-item">Origin or destination port(s)</div>
+            <div class="trust-item">Preferred timeline or laycan</div>
+            <div class="trust-item">Quality or certification requirements</div>
+          </div>
+        </div>
+
+        <div class="info-tile">
+          <h4>Our Model</h4>
+          <div class="trust-items">
+            <div class="trust-item">No upfront retainer or consultation fees</div>
+            <div class="trust-item">Commission earned only on deal completion</div>
+            <div class="trust-item">Full confidentiality at every stage</div>
+            <div class="trust-item">No principal positions — pure facilitation</div>
+          </div>
+        </div>
+
+      </div><!-- /sidebar -->
+    </div><!-- /engage-layout -->
+
+    <!-- FAQ -->
+    <div class="faq-section animate">
+      <div class="section-label">Common Questions</div>
+      <h2>Frequently <em>Asked</em></h2>
+      <div class="faq-list">
+
+        <div class="faq-item">
+          <div class="faq-q" tabindex="0">
+            How does VN Trade earn its fees?
+            <span class="faq-toggle">+</span>
+          </div>
+          <div class="faq-a"><p>VN Trade earns a facilitation commission only upon successful completion of a trade. There are no upfront retainers or consultation fees. Our compensation is directly aligned with your outcome — we earn only when the deal closes.</p></div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q" tabindex="0">
+            Is my enquiry kept confidential?
+            <span class="faq-toggle">+</span>
+          </div>
+          <div class="faq-a"><p>All enquiries are treated with strict confidentiality. Your identity and commercial parameters are not shared with any third party without your explicit consent at each stage of the process.</p></div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q" tabindex="0">
+            How quickly will you respond?
+            <span class="faq-toggle">+</span>
+          </div>
+          <div class="faq-a"><p>We aim to respond to all mandates within 48 hours. For time-sensitive requirements, please note urgency clearly in your message and we will prioritise accordingly.</p></div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q" tabindex="0">
+            Does VN Trade hold commodity positions?
+            <span class="faq-toggle">+</span>
+          </div>
+          <div class="faq-a"><p>No. VN Trade is a pure facilitator and holds no principal commodity positions. This independence allows us to represent the interests of both sides of a transaction without any conflict of interest.</p></div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q" tabindex="0">
+            What commodities and corridors do you cover?
+            <span class="faq-toggle">+</span>
+          </div>
+          <div class="faq-a"><p>Our current focus is Thermal Coal (5,500–6,300 kcal GAR), Metals and Mining (Iron Ore, Steel Products, Copper, Aluminium), Fertilizers (Urea, DAP, MOP, NPK) and Agri Products (Pulses, Lentils, Wheat, Corn, Raw Sugar). Primary corridors: GCC, India sub-continent, Southeast Asia and Europe. Contact us if your requirement falls outside these — our network is broad.</p></div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q" tabindex="0">
+            What happens after I submit a mandate?
+            <span class="faq-toggle">+</span>
+          </div>
+          <div class="faq-a"><p>Your mandate is reviewed within 48 hours. If it falls within our facilitation scope, we will respond with a brief qualification call or written response to confirm parameters. No commitment is implied by this review. Engagement terms are agreed separately in writing before any facilitation activity begins.</p></div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="cta-strip">
+  <h2 class="animate" data-t="cta_title">Ready to Submit a Mandate?</h2>
+  <p class="animate" data-t="cta_sub">Buy-side or sell-side. All mandates reviewed within 48 hours.</p>
+  <div class="actions">
+    <a href="#" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;" class="btn-primary">Back to Form ↑</a>
+    <a href="process.html" class="btn-ghost" data-t="nav_process">View Our Process</a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-logo-block">
+        <a href="index.html" class="logo"><span class="logo-vn">VN</span><div class="logo-rule"></div><span class="logo-trade">Trade</span></a>
+        <p data-t="footer_tagline">Connecting Principals. Orchestrating Trade.</p>
+      </div>
+      <div class="footer-col"><h4>Navigate</h4><ul>
+        <li><a href="portfolio.html" data-t="nav_portfolio">Portfolio</a></li>
+        <li><a href="process.html"   data-t="nav_process">Process</a></li>
+        <li><a href="about.html"     data-t="nav_about">About</a></li>
+        <li><a href="engage.html"    data-t="nav_engage">Engage</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Commodities</h4><ul>
+        <li><a href="portfolio.html#coal">Coal</a></li>
+        <li><a href="portfolio.html#fertilizers">Fertilizers</a></li>
+        <li><a href="portfolio.html#metals">Metals</a></li>
+        <li><a href="portfolio.html#agri">Agri</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Contact</h4><ul>
+        <li><a href="mailto:info@vntrade.in">info@vntrade.in</a></li>
+        <li><a href="https://www.linkedin.com/company/vntrade/" target="_blank" rel="noopener">LinkedIn</a></li>
+      </ul><br>
+      <p style="font-size:.75rem;color:var(--white-dim)" data-t="footer_gstin">GSTIN: [Placeholder]</p>
+      <p style="font-size:.75rem;color:var(--white-dim)" data-t="footer_udyam">Udyam: [Placeholder]</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy" data-t="footer_copy">© 2021–2025 VN Trade. Chennai, India.</p>
+      <p class="footer-disclaimer" data-t="footer_disclaimer">VN Trade provides trade facilitation services. We do not hold title to, or take physical ownership of, any commodity. All transactions are concluded directly between principals.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+function switchTab(tab) {
+  document.querySelectorAll('.tab-btn').forEach((b, i) =>
+    b.classList.toggle('active', (i===0&&tab==='buy')||(i===1&&tab==='sell'))
+  );
+  document.getElementById('tab-buy').classList.toggle('active',  tab==='buy');
+  document.getElementById('tab-sell').classList.toggle('active', tab==='sell');
+}
+
+// FAQ accordion
+document.querySelectorAll('.faq-q').forEach(q => {
+  q.addEventListener('click', () => {
+    const item = q.closest('.faq-item');
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+    if (!isOpen) item.classList.add('open');
+  });
+  q.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); q.click(); }
+  });
+});
+</script>
+<script src="lang.js"></script>
+</body>
+</html>

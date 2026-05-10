@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="VN Trade facilitated portfolio — Coal, Fertilizers, Metals and Agri. Cross-border commodity transaction facilitation across GCC, India, Southeast Asia and Europe.">
+<title>Facilitated Portfolio — VN Trade</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&family=Noto+Sans+Arabic:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+
+/* ── STICKY SECTOR NAV ── */
+.sector-nav {
+  position: sticky; top: var(--nav-h); z-index: 100;
+  background: rgba(7,17,30,0.97); backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+  overflow-x: auto;
+}
+.sector-nav-inner {
+  display: flex; max-width: var(--max-w); margin: 0 auto; padding: 0 56px;
+}
+.sector-nav a {
+  font-size: .68rem; font-weight: 500; letter-spacing: .2em;
+  text-transform: uppercase; color: var(--white-dim);
+  padding: 16px 24px; white-space: nowrap;
+  border-bottom: 2px solid transparent;
+  transition: color .2s, border-color .2s;
+}
+.sector-nav a:hover   { color: var(--white); }
+.sector-nav a.active  { color: var(--gold); border-bottom-color: var(--gold); }
+
+/* ── COMMODITY SECTIONS ── */
+.commodity-section {
+  padding: 100px 56px; border-bottom: 1px solid var(--border);
+}
+.commodity-section:last-of-type { border-bottom: none; }
+.commodity-section:nth-child(odd)  { background: var(--navy); }
+.commodity-section:nth-child(even) { background: var(--navy-mid); }
+
+.commodity-inner {
+  max-width: var(--max-w); margin: 0 auto;
+  display: grid; grid-template-columns: 1fr 1.55fr; gap: 80px; align-items: start;
+}
+.rtl .commodity-inner { direction: rtl; }
+
+/* ── LEFT COLUMN ── */
+.commodity-left {}
+.commodity-label {
+  font-size: .62rem; letter-spacing: .3em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 16px;
+  display: flex; align-items: center; gap: 12px;
+}
+.commodity-label::before {
+  content: ''; display: block; width: 24px; height: 1px; background: var(--gold);
+}
+.rtl .commodity-label { flex-direction: row-reverse; }
+.commodity-name {
+  font-family: var(--font-display); font-size: clamp(2.4rem,5vw,3.6rem);
+  font-weight: 300; color: var(--white); line-height: 1.06; margin-bottom: 14px;
+}
+.commodity-sub {
+  font-size: .88rem; color: var(--white-dim); line-height: 1.8;
+  margin-bottom: 28px; max-width: 340px;
+}
+
+/* Stat Visual Panel */
+.iv-panel {
+  border: 1px solid var(--border); overflow: hidden;
+  height: 200px; position: relative; margin-bottom: 28px;
+}
+.iv-coal   { background: radial-gradient(ellipse 70% 60% at 75% 25%, rgba(240,160,60,.22) 0%, transparent 60%), linear-gradient(145deg,#0C1510 0%,#1A2010 60%,#101C2E 100%); }
+.iv-fert   { background: radial-gradient(ellipse 70% 60% at 75% 25%, rgba(61,203,135,.18) 0%, transparent 60%), linear-gradient(145deg,#0A1E10 0%,#0F2018 60%,#0B1C2E 100%); }
+.iv-metals { background: radial-gradient(ellipse 70% 60% at 75% 25%, rgba(78,158,255,.20) 0%, transparent 60%), linear-gradient(145deg,#0E1828 0%,#101E38 60%,#0B1620 100%); }
+.iv-agri   { background: radial-gradient(ellipse 70% 60% at 75% 25%, rgba(190,200,58,.18) 0%, transparent 60%), linear-gradient(145deg,#181A08 0%,#1C200A 60%,#101820 100%); }
+.iv-hatch {
+  position: absolute; inset: 0; pointer-events: none; opacity: .05;
+  background-image: repeating-linear-gradient(-45deg, transparent, transparent 12px, rgba(255,255,255,.8) 12px, rgba(255,255,255,.8) 13px);
+}
+.iv-stats {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  display: flex; gap: 0;
+}
+.iv-stat-item {
+  flex: 1; padding: 14px 16px;
+  background: rgba(7,17,30,.75); backdrop-filter: blur(8px);
+  border-top: 1px solid rgba(184,150,46,.22);
+  border-right: 1px solid rgba(184,150,46,.12);
+}
+.iv-stat-item:last-child { border-right: none; }
+.iv-stat-item .sv {
+  font-family: var(--font-display); font-size: 1.15rem;
+  color: var(--white); font-weight: 400; line-height: 1;
+  margin-bottom: 4px;
+}
+.iv-stat-item .sl {
+  font-size: .58rem; color: var(--white-dim);
+  text-transform: uppercase; letter-spacing: .14em;
+}
+
+/* Corridor table */
+.corridor-table { width: 100%; border-collapse: collapse; margin-bottom: 8px; }
+.corridor-table tr { border-bottom: 1px solid var(--border-dim); }
+.corridor-table tr:last-child { border-bottom: none; }
+.corridor-table td { padding: 9px 0; font-size: .82rem; line-height: 1.5; }
+.corridor-table td:first-child {
+  color: var(--gold); font-size: .62rem;
+  letter-spacing: .18em; text-transform: uppercase;
+  width: 120px; padding-right: 16px; vertical-align: top; padding-top: 11px;
+}
+.corridor-table td:last-child { color: var(--white-dim); }
+
+/* ── RIGHT COLUMN ── */
+.commodity-detail {}
+.detail-block { margin-bottom: 32px; }
+.detail-block h4 {
+  font-size: .62rem; letter-spacing: .22em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 14px; padding-bottom: 10px;
+  border-bottom: 1px solid var(--border);
+}
+
+/* Scope list */
+.scope-list { list-style: none; }
+.scope-list li {
+  font-size: .86rem; color: var(--white-dim); line-height: 1.7;
+  padding: 8px 0; border-bottom: 1px solid var(--border-dim);
+  display: flex; align-items: flex-start; gap: 12px;
+}
+.scope-list li:last-child { border-bottom: none; }
+.scope-list li::before {
+  content: '—'; color: var(--gold); flex-shrink: 0;
+  font-size: .75rem; margin-top: 2px;
+}
+.rtl .scope-list li { flex-direction: row-reverse; }
+
+/* Spec detail items (from industries) */
+.spec-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.spec-item {
+  background: var(--navy-card); border: 1px solid var(--border);
+  padding: 16px 18px;
+}
+.spec-item h5 {
+  font-size: .6rem; letter-spacing: .2em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 6px;
+}
+.spec-item p { font-size: .8rem; color: var(--white-dim); line-height: 1.65; }
+
+/* Principal tags */
+.principal-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+.principal-tag {
+  font-size: .68rem; letter-spacing: .1em;
+  border: 1px solid var(--border); color: var(--white-dim); padding: 5px 12px;
+}
+
+/* Compliance note */
+.compliance-note {
+  background: var(--gold-faint); border: 1px solid var(--border);
+  padding: 16px 20px; margin-top: 12px;
+}
+.compliance-note span {
+  color: var(--gold); font-size: .58rem; letter-spacing: .2em;
+  text-transform: uppercase; display: block; margin-bottom: 6px;
+}
+.compliance-note p { font-size: .81rem; color: var(--white-dim); line-height: 1.7; }
+
+/* ── RESPONSIVE ── */
+@media(max-width:1000px){
+  .commodity-inner { grid-template-columns: 1fr; gap: 48px; }
+  .spec-grid { grid-template-columns: 1fr; }
+}
+@media(max-width:600px){
+  .commodity-section { padding: 72px 24px; }
+  .sector-nav-inner { padding: 0 24px; }
+  .iv-panel { height: 160px; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="logo"><span class="logo-vn">VN</span><div class="logo-rule"></div><span class="logo-trade">Trade</span></a>
+  <div class="nav-right">
+    <ul class="nav-links">
+      <li><a href="portfolio.html" class="active" data-t="nav_portfolio">Portfolio</a></li>
+      <li><a href="process.html" data-t="nav_process">Process</a></li>
+      <li><a href="about.html" data-t="nav_about">About</a></li>
+      <li><a href="engage.html" class="nav-cta" data-t="nav_cta">Submit Mandate</a></li>
+    </ul>
+    <div class="lang-switcher">
+      <button class="lang-btn active" data-lang="en">EN</button>
+      <button class="lang-btn" data-lang="ar">AR</button>
+      <button class="lang-btn" data-lang="nl">NL</button>
+    </div>
+  </div>
+</nav>
+
+<div class="page-header">
+  <div class="inner">
+    <div class="section-label" data-t="portfolio_label">Facilitated Portfolio</div>
+    <h1 data-t="portfolio_title">What We <em>Facilitate</em></h1>
+    <p data-t="portfolio_sub">We do not hold title to any commodity. Principals transact directly. VN Trade provides the facilitation infrastructure that makes transactions complete.</p>
+  </div>
+</div>
+
+<!-- STICKY SECTOR NAV -->
+<nav class="sector-nav" aria-label="Sector navigation">
+  <div class="sector-nav-inner">
+    <a href="#coal">Coal</a>
+    <a href="#fertilizers">Fertilizers</a>
+    <a href="#metals">Metals</a>
+    <a href="#agri">Agri</a>
+  </div>
+</nav>
+
+
+<!-- ══════════════════════════════════════════════
+     COAL
+══════════════════════════════════════════════ -->
+<section class="commodity-section" id="coal">
+  <div class="commodity-inner">
+
+    <div class="commodity-left animate">
+      <div class="commodity-label">Commodity 01</div>
+      <h2 class="commodity-name">Coal</h2>
+      <p class="commodity-sub">Thermal coal facilitation across key origin-destination corridors. Counterparty coordination, quality management and documentation advisory.</p>
+
+      <div class="iv-panel iv-coal">
+        <div class="iv-hatch"></div>
+        <div class="iv-stats">
+          <div class="iv-stat-item"><div class="sv">6,300</div><div class="sl">kcal GAR max</div></div>
+          <div class="iv-stat-item"><div class="sv">5,500</div><div class="sl">kcal NAR min</div></div>
+          <div class="iv-stat-item"><div class="sv">Panamax</div><div class="sl">vessel size</div></div>
+        </div>
+      </div>
+
+      <table class="corridor-table">
+        <tr><td>Origins</td><td>Indonesia (Kalimantan) · Australia (Hunter Valley / Queensland) · South Africa (Richards Bay) · Russia (Kuzbass)</td></tr>
+        <tr><td>Destinations</td><td>India east &amp; west coast · GCC · Vietnam · Bangladesh · Pakistan</td></tr>
+        <tr><td>Grades</td><td>High-Thermal Steam Coal — 5,500 kcal NAR to 6,300 kcal GAR</td></tr>
+        <tr><td>Vessel Size</td><td>Handysize to Panamax</td></tr>
+        <tr><td>Trade Basis</td><td>FOB · CFR · CIF — Argus McCloskey / Platts APAC reference</td></tr>
+        <tr><td>Surveyor</td><td>SGS · Cotecna · Bureau Veritas at load and discharge</td></tr>
+        <tr><td>Principals</td><td>Utilities · Captive Power · Industrial End-Users</td></tr>
+      </table>
+    </div>
+
+    <div class="commodity-detail animate">
+      <div class="detail-block">
+        <h4>Facilitation Scope</h4>
+        <ul class="scope-list">
+          <li>Counterparty identification and qualification for both buy-side and sell-side mandates</li>
+          <li>Term sheet structuring — price basis, incoterms, quality specification, laycan windows</li>
+          <li>Quality inspection coordination — SGS, Bureau Veritas, Intertek appointment and oversight</li>
+          <li>LC documentation advisory — drafting guidance, amendment management, discrepancy resolution</li>
+          <li>Vessel nomination advisory and laycan compliance monitoring</li>
+          <li>Demurrage claim support and post-shipment settlement assistance</li>
+        </ul>
+      </div>
+
+      <div class="detail-block">
+        <h4>Grade &amp; Origin Detail</h4>
+        <div class="spec-grid">
+          <div class="spec-item">
+            <h5>Indonesia</h5>
+            <p>Kalimantan origin. Grades 4,200–6,300 kcal GAR. Export terminals: Balikpapan, Samarinda. Primary Indian sub-continent and Southeast Asia destination corridor.</p>
+          </div>
+          <div class="spec-item">
+            <h5>Australia</h5>
+            <p>Hunter Valley / Queensland origin. Newcastle benchmark. High-quality coking and thermal grades. ASTM / ISO sampling. Premium power utility buyer profile.</p>
+          </div>
+          <div class="spec-item">
+            <h5>South Africa</h5>
+            <p>Richards Bay Coal Terminal (RBCT). API2 / API4 basis. Strong GCC and European corridor. Sulphur specifications typically below 1%.</p>
+          </div>
+          <div class="spec-item">
+            <h5>Russia</h5>
+            <p>Kuzbass basin. Enhanced due diligence applied. Sanctions screening mandatory on counterparties, vessels and flag states before engagement.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="detail-block">
+        <h4>Principals Served</h4>
+        <div class="principal-tags">
+          <span class="principal-tag">State Utilities</span>
+          <span class="principal-tag">Captive Power Plants</span>
+          <span class="principal-tag">Industrial End-Users</span>
+          <span class="principal-tag">Trading Houses</span>
+          <span class="principal-tag">Mining Offtake Holders</span>
+        </div>
+      </div>
+
+      <div class="compliance-note">
+        <span>Compliance Note</span>
+        <p>Sanctions screening applied on all counterparties, vessels and flag states. Russian-origin coal transactions subject to enhanced due diligence and applicable regulatory review prior to engagement.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════
+     FERTILIZERS
+══════════════════════════════════════════════ -->
+<section class="commodity-section" id="fertilizers">
+  <div class="commodity-inner">
+
+    <div class="commodity-left animate">
+      <div class="commodity-label">Commodity 02</div>
+      <h2 class="commodity-name">Fertilizers</h2>
+      <p class="commodity-sub">Nitrogen, phosphate and potash facilitation into South Asia and GCC markets. Pre-season procurement cycles and spot engagement windows.</p>
+
+      <div class="iv-panel iv-fert">
+        <div class="iv-hatch"></div>
+        <div class="iv-stats">
+          <div class="iv-stat-item"><div class="sv">Argus</div><div class="sl">price benchmark</div></div>
+          <div class="iv-stat-item"><div class="sv">IFA</div><div class="sl">quality standard</div></div>
+          <div class="iv-stat-item"><div class="sv">50k MT</div><div class="sl">max cargo</div></div>
+        </div>
+      </div>
+
+      <table class="corridor-table">
+        <tr><td>Products</td><td>Urea (46% N) · DAP 18-46-0 · MOP · NPK blends</td></tr>
+        <tr><td>Origins</td><td>Middle East · Russia · Egypt · Algeria · Morocco (OCP) · Canada · Belarus</td></tr>
+        <tr><td>Destinations</td><td>India · Bangladesh · Pakistan · Vietnam · Myanmar · GCC</td></tr>
+        <tr><td>Buyers</td><td>Distributors · Cooperatives · State Procurement Bodies</td></tr>
+        <tr><td>Seasons</td><td>Pre-Kharif · Pre-Rabi · Spot</td></tr>
+        <tr><td>Cargo Size</td><td>5,000 – 50,000 MT per parcel</td></tr>
+        <tr><td>Trade Basis</td><td>FOB · CFR · CIF — Argus / ICIS benchmark</td></tr>
+      </table>
+    </div>
+
+    <div class="commodity-detail animate">
+      <div class="detail-block">
+        <h4>Facilitation Scope</h4>
+        <ul class="scope-list">
+          <li>Seasonal mandate origination — pre-Kharif and pre-Rabi buying windows for South Asian buyers</li>
+          <li>Supplier qualification and grade specification alignment for Urea, DAP and MOP</li>
+          <li>Pricing basis advisory — CFR, CIF, FOB — and incoterm selection guidance</li>
+          <li>LC structuring support for state and cooperative buyer counterparties</li>
+          <li>Phytosanitary, origin and quality documentation coordination</li>
+          <li>GCC import permit advisory and regulatory compliance navigation</li>
+        </ul>
+      </div>
+
+      <div class="detail-block">
+        <h4>Product &amp; Origin Detail</h4>
+        <div class="spec-grid">
+          <div class="spec-item">
+            <h5>Nitrogen — Urea</h5>
+            <p>Granular and Prilled Urea (46% N). Ammonium Sulphate (21% N), Ammonium Nitrate. Origins: Middle East, Russia, Egypt, Algeria. IFA quality compliance on all shipments.</p>
+          </div>
+          <div class="spec-item">
+            <h5>Phosphate &amp; Potash</h5>
+            <p>DAP 18-46-0, NPK blends, MOP (Muriate of Potash 60% K₂O). Origins: Morocco (OCP), Saudi Arabia, Canada, Belarus. Argus / ICIS price benchmark.</p>
+          </div>
+          <div class="spec-item">
+            <h5>South Asia Corridors</h5>
+            <p>India, Bangladesh, Pakistan, Vietnam, Myanmar — agricultural input demand driven by pre-season procurement cycles. State buyer and cooperative buyer experience.</p>
+          </div>
+          <div class="spec-item">
+            <h5>GCC Markets</h5>
+            <p>UAE, Saudi Arabia, Kuwait import advisory. GSO import requirements, end-use documentation and phytosanitary coordination as standard facilitation scope.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="detail-block">
+        <h4>Principals Served</h4>
+        <div class="principal-tags">
+          <span class="principal-tag">Fertilizer Distributors</span>
+          <span class="principal-tag">Agricultural Cooperatives</span>
+          <span class="principal-tag">State Procurement Bodies</span>
+          <span class="principal-tag">Blenders</span>
+          <span class="principal-tag">GCC Agri Importers</span>
+        </div>
+      </div>
+
+      <div class="compliance-note">
+        <span>Compliance Note</span>
+        <p>End-use documentation required for all fertilizer transactions. Precursor screening applied where applicable under jurisdiction requirements. GCC Standardization Organization (GSO) import standards observed.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════
+     METALS
+══════════════════════════════════════════════ -->
+<section class="commodity-section" id="metals">
+  <div class="commodity-inner">
+
+    <div class="commodity-left animate">
+      <div class="commodity-label">Commodity 03</div>
+      <h2 class="commodity-name">Metals</h2>
+      <p class="commodity-sub">Steel and base metals facilitation serving GCC construction demand and Indian manufacturing principals. Grade alignment, mill certification and documentation coordination.</p>
+
+      <div class="iv-panel iv-metals">
+        <div class="iv-hatch"></div>
+        <div class="iv-stats">
+          <div class="iv-stat-item"><div class="sv">LME</div><div class="sl">price reference</div></div>
+          <div class="iv-stat-item"><div class="sv">62% Fe</div><div class="sl">ore benchmark</div></div>
+          <div class="iv-stat-item"><div class="sv">Grade A</div><div class="sl">copper spec</div></div>
+        </div>
+      </div>
+
+      <table class="corridor-table">
+        <tr><td>Products</td><td>Iron Ore · HRC · Steel Billets · Wire Rod · Steel Scrap · Copper · Aluminium</td></tr>
+        <tr><td>Origins</td><td>Turkey · CIS · Australia (Pilbara) · Brazil (Carajas) · Chile · Peru · DRC</td></tr>
+        <tr><td>Destinations</td><td>India · GCC · European buyers (CBAM applicable)</td></tr>
+        <tr><td>Buyers</td><td>Steel Re-rollers · Manufacturers · Construction Groups</td></tr>
+        <tr><td>Standards</td><td>IS / ASTM / EN / JIS · LME cash &amp; 3-month reference</td></tr>
+        <tr><td>Cargo Size</td><td>500 – 30,000 MT depending on product</td></tr>
+        <tr><td>Trade Basis</td><td>FOB · CFR · CIF — Platts IODEX / LME / Argus HRC reference</td></tr>
+      </table>
+    </div>
+
+    <div class="commodity-detail animate">
+      <div class="detail-block">
+        <h4>Facilitation Scope</h4>
+        <ul class="scope-list">
+          <li>Grade and specification alignment between buyer technical requirements and seller mill certificates</li>
+          <li>HRC origin and mill qualification — Turkish, East Asian, CIS and domestic sources</li>
+          <li>Scrap grading advisory — HMS 1&2, Shredded, Zorba and non-ferrous grades</li>
+          <li>Copper and aluminium purity specification coordination and assay certification oversight</li>
+          <li>LC terms structuring for deferred payment and usance structures common in metals trade</li>
+          <li>BIS import licence advisory for regulated steel grades entering India</li>
+        </ul>
+      </div>
+
+      <div class="detail-block">
+        <h4>Product &amp; Grade Detail</h4>
+        <div class="spec-grid">
+          <div class="spec-item">
+            <h5>Iron Ore</h5>
+            <p>Lump, fines and pellet feed. Fe range 58–65%. Origins: Australia (Pilbara), Brazil (Carajas). Capesize / Panamax. Pricing: Platts IODEX 62% Fe CFR China.</p>
+          </div>
+          <div class="spec-item">
+            <h5>Steel Products</h5>
+            <p>Billets 3SP / 5SP, Hot-Rolled Coil (HRC), Wire Rod. Origins: Turkey, CIS. Basis: FOB, CFR, CIF. Lot: 5,000–30,000 MT. Spec: JIS G3108 / ASTM A1011.</p>
+          </div>
+          <div class="spec-item">
+            <h5>Steel Scrap</h5>
+            <p>HMS 1&2 (80:20), Shredded, Zorba (non-ferrous mixed). GCC-origin scrap tightening. Lot: 5,000–25,000 MT. Pricing: Turkey CFR benchmark via Argus/Fastmarkets.</p>
+          </div>
+          <div class="spec-item">
+            <h5>Copper &amp; Aluminium</h5>
+            <p>Copper Cathode Grade A (BS EN 1978). Copper Concentrate 25–30% Cu. Origins: Chile, Peru, DRC. Lot: 500–5,000 MT cathode. LME Cash / 3-Month pricing basis.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="detail-block">
+        <h4>Principals Served</h4>
+        <div class="principal-tags">
+          <span class="principal-tag">Steel Re-rollers</span>
+          <span class="principal-tag">Construction Groups</span>
+          <span class="principal-tag">Manufacturing Plants</span>
+          <span class="principal-tag">Scrap Processors</span>
+          <span class="principal-tag">GCC Project Buyers</span>
+        </div>
+      </div>
+
+      <div class="compliance-note">
+        <span>CBAM Note</span>
+        <p>Steel and aluminium destined for European buyers is subject to CBAM (Carbon Border Adjustment Mechanism) requirements from 2026. Embedded carbon content documentation advisory available on request.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ══════════════════════════════════════════════
+     AGRI
+══════════════════════════════════════════════ -->
+<section class="commodity-section" id="agri">
+  <div class="commodity-inner">
+
+    <div class="commodity-left animate">
+      <div class="commodity-label">Commodity 04</div>
+      <h2 class="commodity-name">Agri</h2>
+      <p class="commodity-sub">Pulse, lentil, grain and soft commodity facilitation into GCC, Southeast Asia and European markets. Origin qualification, phytosanitary coordination and buyer-seller alignment.</p>
+
+      <div class="iv-panel iv-agri">
+        <div class="iv-hatch"></div>
+        <div class="iv-stats">
+          <div class="iv-stat-item"><div class="sv">ICUMSA</div><div class="sl">sugar standard</div></div>
+          <div class="iv-stat-item"><div class="sv">LATAM</div><div class="sl">primary origin</div></div>
+          <div class="iv-stat-item"><div class="sv">55k MT</div><div class="sl">max cargo</div></div>
+        </div>
+      </div>
+
+      <table class="corridor-table">
+        <tr><td>Products</td><td>Pulses · Lentils · Wheat · Corn / Maize · Soybeans · Raw Sugar ICUMSA 45</td></tr>
+        <tr><td>Origins</td><td>Canada · Australia · India · Myanmar · Russia · Ukraine · Brazil · Argentina</td></tr>
+        <tr><td>Destinations</td><td>GCC · Southeast Asia (India, Bangladesh, Vietnam, Philippines) · Europe</td></tr>
+        <tr><td>Buyers</td><td>Commodity Importers · Food Processors · Retail Supply Chain</td></tr>
+        <tr><td>Cargo Size</td><td>Container to bulk — 5,000–55,000 MT</td></tr>
+        <tr><td>Trade Basis</td><td>FOB · CFR · CIF — LC, DP, DA payment structures</td></tr>
+        <tr><td>Documentation</td><td>Phytosanitary · Fumigation · COO · Residue Testing</td></tr>
+      </table>
+    </div>
+
+    <div class="commodity-detail animate">
+      <div class="detail-block">
+        <h4>Facilitation Scope</h4>
+        <ul class="scope-list">
+          <li>Origin qualification — Canadian, Australian, Indian and Myanmar pulse and lentil sources</li>
+          <li>Grade, moisture and admixture specification alignment between buyer and seller</li>
+          <li>Phytosanitary certificate and fumigation documentation coordination</li>
+          <li>Food safety compliance advisory for EU and GCC import requirements</li>
+          <li>Container and bulk logistics coordination across key discharge ports</li>
+          <li>Payment terms structuring — LC, DP, DA — based on counterparty profile</li>
+        </ul>
+      </div>
+
+      <div class="detail-block">
+        <h4>Product &amp; Origin Detail</h4>
+        <div class="spec-grid">
+          <div class="spec-item">
+            <h5>Pulses &amp; Lentils</h5>
+            <p>Origins: Canada, Australia, India, Myanmar. GCC and EU demand active. Canadian crop tightness currently supporting lentil pricing. Container and bulk parcels.</p>
+          </div>
+          <div class="spec-item">
+            <h5>Grains</h5>
+            <p>Wheat (Milling, Feed), Corn / Maize, Soybeans. Origins: Russia, Ukraine, Brazil, Argentina. Cargo: 10,000–55,000 MT. Phytosanitary certificates on all shipments.</p>
+          </div>
+          <div class="spec-item">
+            <h5>Raw Sugar</h5>
+            <p>ICUMSA 45 (VHP). Origins: Brazil (Santos), Thailand. Basis: FOB / CFR. Cargo: 5,000–25,000 MT. Pol 99.3% min, Moisture 0.15% max. Brazil remains primary corridor.</p>
+          </div>
+          <div class="spec-item">
+            <h5>Import Corridors</h5>
+            <p>India, Bangladesh, Indonesia, Vietnam, Philippines, Sri Lanka — high-growth demand corridor where food security policy drives sustained import volumes and pre-season accumulation.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="detail-block">
+        <h4>Principals Served</h4>
+        <div class="principal-tags">
+          <span class="principal-tag">Commodity Importers</span>
+          <span class="principal-tag">Food Processors</span>
+          <span class="principal-tag">GCC Distributors</span>
+          <span class="principal-tag">EU Importers</span>
+          <span class="principal-tag">Retail Supply Chain</span>
+        </div>
+      </div>
+
+      <div class="compliance-note">
+        <span>Compliance Note</span>
+        <p>EU food safety regulations and GCC Standardization Organization (GSO) import requirements observed. Phytosanitary and residue testing documentation coordinated as part of facilitation scope.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<section class="cta-strip">
+  <h2 class="animate" data-t="cta_title">Ready to Submit a Mandate?</h2>
+  <p class="animate" data-t="cta_sub">Buy-side or sell-side. All mandates reviewed within 48 hours.</p>
+  <div class="actions">
+    <a href="engage.html" class="btn-primary" data-t="cta_btn">Submit a Mandate</a>
+    <a href="process.html" class="btn-ghost" data-t="nav_process">View Our Process</a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-logo-block">
+        <a href="index.html" class="logo"><span class="logo-vn">VN</span><div class="logo-rule"></div><span class="logo-trade">Trade</span></a>
+        <p data-t="footer_tagline">Connecting Principals. Orchestrating Trade.</p>
+      </div>
+      <div class="footer-col"><h4>Navigate</h4><ul>
+        <li><a href="portfolio.html" data-t="nav_portfolio">Portfolio</a></li>
+        <li><a href="process.html"   data-t="nav_process">Process</a></li>
+        <li><a href="about.html"     data-t="nav_about">About</a></li>
+        <li><a href="engage.html"    data-t="nav_engage">Engage</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Commodities</h4><ul>
+        <li><a href="#coal">Coal</a></li>
+        <li><a href="#fertilizers">Fertilizers</a></li>
+        <li><a href="#metals">Metals</a></li>
+        <li><a href="#agri">Agri</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Contact</h4><ul>
+        <li><a href="mailto:info@vntrade.in">info@vntrade.in</a></li>
+        <li><a href="https://www.linkedin.com/company/vntrade/" target="_blank" rel="noopener">LinkedIn</a></li>
+      </ul><br>
+      <p style="font-size:.75rem;color:var(--white-dim)" data-t="footer_gstin">GSTIN: [Placeholder]</p>
+      <p style="font-size:.75rem;color:var(--white-dim)" data-t="footer_udyam">Udyam: [Placeholder]</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy" data-t="footer_copy">© 2021–2025 VN Trade. Chennai, India.</p>
+      <p class="footer-disclaimer" data-t="footer_disclaimer">VN Trade provides trade facilitation services. We do not hold title to, or take physical ownership of, any commodity. All transactions are concluded directly between principals.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Sticky sector nav — highlight on scroll
+(function () {
+  const ids = ['coal','fertilizers','metals','agri'];
+  const links = ids.map(id => ({
+    id,
+    link: document.querySelector(`.sector-nav a[href="#${id}"]`)
+  })).filter(s => s.link);
+
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        links.forEach(s => s.link.classList.remove('active'));
+        const match = links.find(s => s.id === e.target.id);
+        if (match) match.link.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-20% 0px -70% 0px' });
+
+  ids.forEach(id => { const el = document.getElementById(id); if (el) io.observe(el); });
+})();
+</script>
+<script src="lang.js"></script>
+</body>
+</html>
