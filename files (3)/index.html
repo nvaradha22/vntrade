@@ -37,16 +37,18 @@
 }
 .hero-video.loaded { opacity: 0.48; }
 
-/* Fallback image shown if video fails / not loaded yet */
+/* Fallback — standalone CSS scene, no external dependency */
+/* Fallback photo — shown until video loads or if video unavailable */
 .hero-fallback {
   position: absolute;
   inset: 0;
-  background-image: url('https://images.unsplash.com/photo-1494412574643-ff11b0a5c1c3?w=1920&q=80&auto=format');
+  background-image: url('hero-fallback.jpg');
   background-size: cover;
-  background-position: center;
-  opacity: 0.32;
-  transition: opacity 0.6s;
+  background-position: center 40%;
+  opacity: 0.52;
+  transition: opacity 0.8s ease;
 }
+
 /* Hide fallback once video is playing */
 .hero-video.loaded ~ .hero-fallback { opacity: 0; }
 
