@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="ECTRADE Insights - Market intelligence, analysis and commentary on global physical commodity markets.">
+<title>Insights | ECTRADE</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+.insights-filter { display: flex; gap: 0.75rem; flex-wrap: wrap; margin: 2.5rem 0; }
+.insights-filter button { font-size: 0.78rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.45rem 1.1rem; border: 1px solid rgba(90,107,122,0.2); border-radius: 20px; background: none; color: var(--steel); cursor: pointer; transition: var(--transition); }
+.insights-filter button.active, .insights-filter button:hover { background: var(--navy); color: var(--gold); border-color: var(--navy); }
+.insights-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.75rem; }
+.article-card { background: var(--white); border: 1px solid rgba(90,107,122,0.12); border-radius: 4px; overflow: hidden; transition: var(--transition); display: flex; flex-direction: column; }
+.article-card:hover { transform: translateY(-5px); box-shadow: 0 12px 40px rgba(11,31,58,0.1); border-color: rgba(255,230,0,0.2); }
+.article-thumb { height: 180px; position: relative; overflow: hidden; background: var(--navy); background-size: cover; background-position: center; }
+.article-thumb::after { content: ''; position: absolute; inset: 0; background: linear-gradient(transparent 40%, rgba(11,31,58,0.6)); }
+.thumb-2024 { background: linear-gradient(135deg, #0B1F3A, #1a3a5c); }
+.thumb-2025 { background: linear-gradient(135deg, #1a2a0B, #3a5c1a); }
+.thumb-2026 { background: linear-gradient(135deg, #2a0B1F, #5c1a3a); }
+.article-badge { position: absolute; top: 1rem; left: 1rem; z-index: 2; background: rgba(11,31,58,0.8); border: 1px solid rgba(255,230,0,0.3); padding: 0.25rem 0.7rem; border-radius: 2px; font-size: 0.7rem; font-weight: 600; color: var(--gold); letter-spacing: 0.1em; }
+.article-body { padding: 1.5rem; flex: 1; display: flex; flex-direction: column; }
+.article-meta { display: flex; gap: 0.75rem; font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; color: var(--steel-light); margin-bottom: 0.75rem; align-items: center; flex-wrap: wrap; }
+.article-year-tag { color: var(--gold); font-weight: 600; }
+.article-body h2 { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; font-weight: 600; color: var(--navy); line-height: 1.4; margin-bottom: 0.75rem; }
+.article-body p { font-size: 0.84rem; color: var(--steel); line-height: 1.7; flex: 1; }
+.article-footer { display: flex; align-items: center; justify-content: space-between; margin-top: 1.25rem; padding-top: 1rem; border-top: 1px solid rgba(90,107,122,0.1); }
+.read-more { font-size: 0.8rem; font-weight: 600; color: var(--navy); text-decoration: none; letter-spacing: 0.05em; display: flex; align-items: center; gap: 0.35rem; transition: gap var(--transition), color var(--transition); }
+.read-more:hover { color: var(--gold); gap: 0.6rem; }
+.share-btns { display: flex; gap: 0.4rem; }
+.share-btn { width: 28px; height: 28px; border-radius: 50%; border: 1px solid rgba(90,107,122,0.2); background: none; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; color: var(--steel); transition: var(--transition); text-decoration: none; }
+.share-btn:hover { border-color: var(--gold); color: var(--gold); }
+.featured-post { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1fr; gap: 0; border-radius: 4px; overflow: hidden; border: 1px solid rgba(90,107,122,0.12); background: var(--white); }
+.featured-post .article-thumb { height: 100%; min-height: 300px; border-radius: 0; }
+.featured-post .article-body { padding: 2.5rem; }
+.featured-post .article-body h2 { font-size: 1.7rem; margin-bottom: 1rem; }
+.featured-post .article-body p { font-size: 0.9rem; }
+.featured-label { display: inline-block; background: linear-gradient(135deg, var(--gold), var(--gold-dark)); color: var(--navy); font-size: 0.65rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.25rem 0.7rem; border-radius: 2px; margin-bottom: 1rem; }
+@media (max-width: 1024px) { .insights-grid { grid-template-columns: repeat(2, 1fr); } .featured-post { grid-template-columns: 1fr; } .featured-post .article-thumb { min-height: 200px; } }
+@media (max-width: 768px) { .insights-grid { grid-template-columns: 1fr; } .featured-post { grid-column: auto; } }
+
+.article-thumb { background-size: cover !important; background-position: center !important; }
+.article-thumb .article-badge { position: absolute; bottom: 12px; right: 12px; }
+
+</style>
+</head>
+<body>
+
+<!-- ═ ECTRADE STATIC MARKET TICKER ═ -->
+</div>
+  <div class="ticker-caption">
+    <span class="tc-dot"></span>
+    Market Data — Daily Close &nbsp;|&nbsp; Reference prices only. Not an offer.
+  </div>
+</div>
+
+
+
+<header id="mainHeader">
+  <div class="header-inner">
+    <a href="index.html" class="logo">ECTRADE</a>
+    <nav id="mainNav">
+      <a href="index.html">Home</a>
+      <a href="services.html">Services</a>
+      <a href="industries.html">Industries</a>
+      <a href="commodities.html">Commodities</a>
+      <a href="insights.html" class="active">Insights</a>
+      <a href="contact.html" class="nav-cta">Contact Us</a>
+    </nav>
+    <button class="menu-toggle" id="menuToggle"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<div class="page-hero hero-dark">
+  <div class="page-hero-grid"></div>
+  <div class="page-hero-content">
+    <span class="page-hero-tag">Market Intelligence</span>
+    <h1>ECTRADE Insights</h1>
+    <p>Analysis, market commentary and sector perspectives from the ECTRADE team — helping our clients navigate global commodity markets.</p>
+  </div>
+</div>
+
+<section>
+  <div class="container">
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem">
+      <div>
+        <span class="section-label">All Articles</span>
+        <h2 class="section-title">Latest Publications</h2>
+      </div>
+      <div style="font-size:0.85rem;color:var(--steel)">9 Articles · 2024 – 2026</div>
+    </div>
+    <div class="insights-filter">
+      <button class="active" data-filter="all">All Years</button>
+      <button data-filter="2024">2024</button>
+      <button data-filter="2025">2025</button>
+      <button data-filter="2026">2026</button>
+    </div>
+
+    <div class="insights-grid" id="insightsGrid">
+
+      <!-- Featured: Latest Post -->
+      <div class="featured-post article-card" data-year="2026">
+        <div class="article-thumb thumb-2026" style="background-image:url('https://images.unsplash.com/photo-1500076656116-558758c991c1?w=600&h=280&fit=crop&auto=format&q=80');background-size:cover;background-position:center;"><span class="article-badge">2026</span></div>
+        <div class="article-body">
+          <div class="featured-label">Latest Insight</div>
+          <div class="article-meta">
+            <span class="article-year-tag">2026</span>
+            <span>·</span>
+            <span>Food Security</span>
+            <span>·</span>
+            <span>8 min read</span>
+          </div>
+          <h2>2026 Global Food Security: Challenges and Opportunities for Commodity Trade</h2>
+          <p>Climate disruption, geopolitical fragmentation and currency pressures are converging into one of the most complex global food security environments in decades. For commodity brokers, the challenge is navigating uncertainty — while the opportunity lies in facilitating essential supply chain connections that keep food flowing from surplus to deficit regions.</p>
+          <div class="article-footer">
+            <a href="article-9.html" class="read-more">Read Full Article →</a>
+            <div class="share-btns">
+              <a href="#" class="share-btn" title="Share on LinkedIn">in</a>
+              <a href="#" class="share-btn" title="Share on X">X</a>
+              <a href="#" class="share-btn" title="Share via Email">Email</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Article 8 -->
+      <div class="article-card" data-year="2026">
+        <div class="article-thumb thumb-2026" style="position:relative" style="background-image:url('https://images.unsplash.com/photo-1466611653911-95081537e5b7?w=600&h=280&fit=crop&auto=format&q=80');background-size:cover;background-position:center;"><span class="article-badge">2026</span></div>
+        <div class="article-body">
+          <div class="article-meta"><span class="article-year-tag">2026</span><span>·</span><span>Energy Transition</span><span>·</span><span>7 min read</span></div>
+          <h2>The Green Ammonia Transition: Hype vs. Reality</h2>
+          <p>Green ammonia is positioned as a cornerstone of the hydrogen economy and maritime fuel transition — but the economics and infrastructure timelines remain complex and uncertain.</p>
+          <div class="article-footer">
+            <a href="article-8.html" class="read-more">Read Article →</a>
+            <div class="share-btns"><a href="#" class="share-btn">in</a><a href="#" class="share-btn">X</a><a href="#" class="share-btn">Email</a></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Article 7 -->
+      <div class="article-card" data-year="2026">
+        <div class="article-thumb thumb-2026" style="position:relative" style="background-image:url('https://images.unsplash.com/photo-1504700610630-ac6aba3536d3?w=600&h=280&fit=crop&auto=format&q=80');background-size:cover;background-position:center;"><span class="article-badge">2026</span></div>
+        <div class="article-body">
+          <div class="article-meta"><span class="article-year-tag">2026</span><span>·</span><span>Steel & Metals</span><span>·</span><span>6 min read</span></div>
+          <h2>Steel Industry Forecast: Decarbonisation Meets Demand Reality</h2>
+          <p>Green steel ambitions are colliding with economic realities. Where does this leave bulk iron ore and scrap trade through the end of the decade?</p>
+          <div class="article-footer">
+            <a href="article-7.html" class="read-more">Read Article →</a>
+            <div class="share-btns"><a href="#" class="share-btn">in</a><a href="#" class="share-btn">X</a><a href="#" class="share-btn">Email</a></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Article 6 -->
+      <div class="article-card" data-year="2025">
+        <div class="article-thumb thumb-2025" style="position:relative" style="background-image:url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=600&h=280&fit=crop&auto=format&q=80');background-size:cover;background-position:center;"><span class="article-badge">2025</span></div>
+        <div class="article-body">
+          <div class="article-meta"><span class="article-year-tag">2025</span><span>·</span><span>Technology</span><span>·</span><span>5 min read</span></div>
+          <h2>Digital Bulk-Tracking Technology Transforms Trade Transparency</h2>
+          <p>IoT sensors, blockchain records and satellite positioning are bringing a new era of accountability and visibility to physical commodity trade flows.</p>
+          <div class="article-footer">
+            <a href="article-6.html" class="read-more">Read Article →</a>
+            <div class="share-btns"><a href="#" class="share-btn">in</a><a href="#" class="share-btn">X</a><a href="#" class="share-btn">Email</a></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Article 5 -->
+      <div class="article-card" data-year="2025">
+        <div class="article-thumb thumb-2025" style="position:relative" style="background-image:url('https://images.unsplash.com/photo-1628352081506-83c43123ed6d?w=600&h=280&fit=crop&auto=format&q=80');background-size:cover;background-position:center;"><span class="article-badge">2025</span></div>
+        <div class="article-body">
+          <div class="article-meta"><span class="article-year-tag">2025</span><span>·</span><span>Fertilizers</span><span>·</span><span>6 min read</span></div>
+          <h2>Fertilizer Export Quotas & Their Cascading Global Impact</h2>
+          <p>China and Russia's ongoing export restrictions on nitrogen and phosphate fertilizers are creating ripple effects through agricultural supply chains worldwide.</p>
+          <div class="article-footer">
+            <a href="article-5.html" class="read-more">Read Article →</a>
+            <div class="share-btns"><a href="#" class="share-btn">in</a><a href="#" class="share-btn">X</a><a href="#" class="share-btn">Email</a></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Article 4 -->
+      <div class="article-card" data-year="2025">
+        <div class="article-thumb thumb-2025" style="position:relative" style="background-image:url('https://images.unsplash.com/photo-1516339901601-2e1b62dc0c45?w=600&h=280&fit=crop&auto=format&q=80');background-size:cover;background-position:center;"><span class="article-badge">2025</span></div>
+        <div class="article-body">
+          <div class="article-meta"><span class="article-year-tag">2025</span><span>·</span><span>Mining</span><span>·</span><span>7 min read</span></div>
+          <h2>ESG Compliance Reshaping Global Mining Trade Flows</h2>
+          <p>Environmental and social governance standards are now a key factor in sourcing decisions — creating winners and losers among mining exporters globally.</p>
+          <div class="article-footer">
+            <a href="article-4.html" class="read-more">Read Article →</a>
+            <div class="share-btns"><a href="#" class="share-btn">in</a><a href="#" class="share-btn">X</a><a href="#" class="share-btn">Email</a></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Article 3 -->
+      <div class="article-card" data-year="2024">
+        <div class="article-thumb thumb-2024" style="position:relative" style="background-image:url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=600&h=280&fit=crop&auto=format&q=80');background-size:cover;background-position:center;"><span class="article-badge">2024</span></div>
+        <div class="article-body">
+          <div class="article-meta"><span class="article-year-tag">2024</span><span>·</span><span>Agriculture</span><span>·</span><span>6 min read</span></div>
+          <h2>Rising Agri-Demand Across Latin America's Growing Economies</h2>
+          <p>Brazil, Argentina and Colombia are increasingly critical anchors for global food supply — and their export trajectories are reshaping commodity trade patterns.</p>
+          <div class="article-footer">
+            <a href="article-3.html" class="read-more">Read Article →</a>
+            <div class="share-btns"><a href="#" class="share-btn">in</a><a href="#" class="share-btn">X</a><a href="#" class="share-btn">Email</a></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Article 2 -->
+      <div class="article-card" data-year="2024">
+        <div class="article-thumb thumb-2024" style="position:relative" style="background-image:url('https://images.unsplash.com/photo-1578574577315-3fbeb0cecdc2?w=600&h=280&fit=crop&auto=format&q=80');background-size:cover;background-position:center;"><span class="article-badge">2024</span></div>
+        <div class="article-body">
+          <div class="article-meta"><span class="article-year-tag">2024</span><span>·</span><span>Logistics</span><span>·</span><span>5 min read</span></div>
+          <h2>Red Sea Logistics Resilience & Bulk Cargo Rerouting</h2>
+          <p>Persistent disruptions in Suez Canal traffic are creating new bulk cargo routing patterns and reshaping freight rate dynamics for commodity traders.</p>
+          <div class="article-footer">
+            <a href="article-2.html" class="read-more">Read Article →</a>
+            <div class="share-btns"><a href="#" class="share-btn">in</a><a href="#" class="share-btn">X</a><a href="#" class="share-btn">Email</a></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Article 1 -->
+      <div class="article-card" data-year="2024">
+        <div class="article-thumb thumb-2024" style="position:relative" style="background-image:url('https://images.unsplash.com/photo-1466611653911-95081537e5b7?w=600&h=280&fit=crop&auto=format&q=80');background-size:cover;background-position:center;"><span class="article-badge">2024</span></div>
+        <div class="article-body">
+          <div class="article-meta"><span class="article-year-tag">2024</span><span>·</span><span>Energy Markets</span><span>·</span><span>7 min read</span></div>
+          <h2>Energy Market Stability in a Multipolar World</h2>
+          <p>Shifting alliances, new LNG export infrastructure and OPEC+ dynamics are rebalancing long-term supply security for both producers and buyers globally.</p>
+          <div class="article-footer">
+            <a href="article-1.html" class="read-more">Read Article →</a>
+            <div class="share-btns"><a href="#" class="share-btn">in</a><a href="#" class="share-btn">X</a><a href="#" class="share-btn">Email</a></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="cta-band">
+  <div class="container">
+    <div class="cta-inner">
+      <h2>Want Market Intelligence Delivered to You?</h2>
+      <p>Contact us to discuss your specific commodity sector and we'll keep you informed on relevant developments.</p>
+      <div class="cta-actions">
+        <a href="contact.html" class="btn-dark">Get in Touch →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="logo">ECTRADE</a>
+        <p>Independent physical commodity broker facilitating global trade in High-Thermal Coal, Metals and Fertilizers — with trust, transparency and expertise.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Services</h4>
+        <a href="services.html">Trade Facilitation</a>
+        <a href="services.html">Market Intelligence</a>
+        <a href="services.html">Deal Structuring</a>
+        <a href="services.html">Logistics Advisory</a>
+      </div>
+      <div class="footer-col">
+        <h4>Sectors</h4>
+        <a href="industries.html">High-Thermal Coal</a>
+        <a href="industries.html">Metals &amp; Mining</a>
+        <a href="industries.html">Fertilizers &amp; Agri</a>
+        <a href="commodities.html">Commodity Directory</a>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <a href="insights.html">Insights</a>
+        <a href="contact.html">Contact Us</a>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Use</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 ECTRADE. All rights reserved. Independent commodity brokerage. Prices are indicative reference data only.</p>
+      <div class="footer-socials">
+        <a href="#" class="social-btn">in</a>
+        <a href="#" class="social-btn">𝕏</a>
+        <a href="mailto:trade@vnadvisory.in" class="social-btn" title="Email">@</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<div class="chat-popup" id="chatPopup">
+  <div class="chat-panel" id="chatPanel">
+    <div class="chat-panel-header">
+      <span>Trade Expert</span>
+      <button class="chat-close-btn" id="chatCloseBtn">&#10005;</button>
+    </div>
+    <div class="chat-body" id="chatBody"></div>
+    <div class="chat-menu-btns" id="chatMenuBtns"></div>
+  </div>
+  <button class="chat-btn" id="chatBtn" title="Ask a trade expert">Chat</button>
+</div>
+<script src="script.js"></script>
+<script>
+document.querySelectorAll('.insights-filter button').forEach(btn => {
+  btn.addEventListener('click', function() {
+    document.querySelectorAll('.insights-filter button').forEach(b => b.classList.remove('active'));
+    this.classList.add('active');
+    const filter = this.dataset.filter;
+    document.querySelectorAll('#insightsGrid .article-card').forEach(card => {
+      card.style.display = (filter === 'all' || card.dataset.year === filter) ? '' : 'none';
+    });
+  });
+});
+</script>
+</body>
+</html>

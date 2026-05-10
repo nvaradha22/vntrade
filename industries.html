@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="ECTRADE Industries — High-Thermal Grade Coal, Metals & Mining, and Fertilizers & Agri Products brokerage. Physical commodity facilitation across global markets.">
+<title>Industries | ECTRADE — Coal, Metals &amp; Fertilizer Brokerage</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+/* ── SECTOR QUICK-NAV ── */
+.sector-nav {
+  background: var(--navy);
+  border-bottom: 2px solid rgba(255,230,0,0.18);
+  position: sticky; top: calc(var(--ticker-h) + var(--header-h)); z-index: 99;
+}
+.sector-nav-inner {
+  max-width: 1320px; margin: 0 auto; padding: 0 2rem;
+  display: flex; gap: 0;
+}
+.sector-nav a {
+  display: flex; align-items: center; gap: 0.5rem;
+  padding: 1rem 1.5rem; font-size: 0.8rem; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.07em;
+  color: var(--steel-light); text-decoration: none;
+  border-bottom: 3px solid transparent; transition: var(--transition);
+  margin-bottom: -2px;
+}
+.sector-nav a:hover,
+.sector-nav a.active { color: var(--gold); border-bottom-color: var(--gold); }
+
+/* ── SECTOR BLOCKS ── */
+.industry-block-section { padding: 90px 0; }
+.industry-block-section:nth-child(odd)  { background: var(--white); }
+.industry-block-section:nth-child(even) { background: #f0f2f5; }
+
+.industry-block {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start;
+}
+.industry-block.reverse .ind-visual { order: 2; }
+.industry-block.reverse .ind-text   { order: 1; }
+
+/* CSS-only visual panels for each sector */
+.ind-visual { position: relative; }
+.ind-panel {
+  width: 100%; aspect-ratio: 4/3; border-radius: 2px; overflow: hidden;
+  position: relative; display: flex; align-items: flex-end;
+}
+/* Coal panel */
+.ind-panel-coal {
+  background:
+    radial-gradient(ellipse 80% 60% at 80% 30%, rgba(200,100,20,0.35) 0%, transparent 65%),
+    radial-gradient(ellipse 40% 50% at 15% 75%, rgba(255,230,0,0.08) 0%, transparent 55%),
+    linear-gradient(155deg, #080f0a 0%, #101808 40%, #121c10 100%);
+}
+/* Metals panel */
+.ind-panel-metals {
+  background:
+    radial-gradient(ellipse 70% 55% at 85% 25%, rgba(255,160,0,0.3) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 60% at 10% 80%, rgba(90,107,122,0.3) 0%, transparent 55%),
+    linear-gradient(145deg, #0a1420 0%, #101c30 55%, #0d1a28 100%);
+}
+/* Fertilizer panel */
+.ind-panel-fert {
+  background:
+    radial-gradient(ellipse 75% 65% at 75% 30%, rgba(60,180,60,0.28) 0%, transparent 65%),
+    radial-gradient(ellipse 45% 55% at 10% 80%, rgba(255,230,0,0.08) 0%, transparent 55%),
+    linear-gradient(150deg, #060f06 0%, #0c1a0e 45%, #0a1510 100%);
+}
+/* SVG hatch overlay */
+.ind-panel::before {
+  content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  opacity: 0.07;
+  background-image: repeating-linear-gradient(
+    -45deg, transparent, transparent 12px,
+    rgba(255,255,255,.9) 12px, rgba(255,255,255,.9) 13px
+  );
+}
+/* Grid overlay */
+.ind-panel::after {
+  content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  opacity: 0.04;
+  background-image:
+    linear-gradient(rgba(255,255,255,.8) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.8) 1px, transparent 1px);
+  background-size: 50px 50px;
+}
+.ind-panel-label {
+  position: relative; z-index: 2;
+  padding: 1.5rem;
+  font-family: 'Barlow Condensed', sans-serif; font-size: 1.6rem;
+  font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em;
+  color: var(--white); text-shadow: 0 2px 8px rgba(0,0,0,0.6);
+  display: flex; align-items: center; gap: 0.6rem;
+}
+/* Accent badge on panel */
+.ind-badge {
+  position: absolute; bottom: -14px; right: 20px; z-index: 5;
+  background: var(--gold); padding: 0.75rem 1.25rem; border-radius: 2px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+}
+.ind-badge .badge-label {
+  display: block; font-size: 0.58rem; font-weight: 700; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--navy); margin-bottom: 0.1rem;
+}
+.ind-badge .badge-val {
+  font-family: 'Barlow Condensed', sans-serif; font-size: 1.05rem; font-weight: 700; color: var(--navy);
+}
+
+/* Tags */
+.ind-tags { display: flex; flex-wrap: wrap; gap: 0.45rem; margin: 1.25rem 0; }
+.ind-tag {
+  font-size: 0.7rem; font-weight: 700; padding: 0.25rem 0.7rem; border-radius: 1px;
+  background: rgba(255,230,0,0.08); border: 1px solid rgba(255,230,0,0.2); color: var(--gold);
+}
+
+/* Spec table */
+.spec-table { width: 100%; border-collapse: collapse; margin-top: 1.5rem; }
+.spec-table tr { border-bottom: 1px solid rgba(90,107,122,0.1); }
+.spec-table tr:last-child { border-bottom: none; }
+.spec-table td { padding: 0.65rem 0; font-size: 0.84rem; vertical-align: top; }
+.spec-table td:first-child { color: var(--steel); width: 40%; font-weight: 500; }
+.spec-table td:last-child { color: var(--navy); font-weight: 600; }
+
+/* Sub-products */
+.sub-product {
+  padding: 1.1rem 1.25rem; border: 1px solid rgba(255,230,0,0.1);
+  border-left: 4px solid var(--gold); margin-bottom: 1rem;
+}
+.sub-product.secondary { border-left-color: rgba(255,230,0,0.3); }
+.sub-product-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.45rem; }
+.sub-product-title {
+  font-family: 'Barlow Condensed', sans-serif; font-size: 0.92rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.06em; color: var(--navy);
+}
+.sub-badge {
+  font-size: 0.62rem; font-weight: 700; padding: 0.12rem 0.5rem; border-radius: 1px;
+}
+.badge-primary { background: var(--gold); color: var(--navy); }
+.badge-secondary { border: 1px solid rgba(255,230,0,0.35); color: var(--gold); }
+.sub-product p { font-size: 0.81rem; color: var(--steel); line-height: 1.65; margin-bottom: 0.6rem; }
+
+@media (max-width: 1024px) {
+  .industry-block, .industry-block.reverse {
+    grid-template-columns: 1fr; gap: 2.5rem;
+  }
+  .industry-block.reverse .ind-visual,
+  .industry-block.reverse .ind-text { order: 0; }
+  .ind-badge { display: none; }
+  .sector-nav a { padding: 0.8rem 1rem; font-size: 0.75rem; }
+}
+@media (max-width: 768px) {
+  .sector-nav-inner { flex-wrap: wrap; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═ STATIC TICKER ═ -->
+</div>
+  <div class="ticker-caption">
+    <span class="tc-dot"></span>
+    Market Data — Daily Close &nbsp;|&nbsp; Reference prices only. Not an offer.
+  </div>
+</div>
+
+<!-- ═ HEADER ═ -->
+<header id="mainHeader">
+  <div class="header-inner">
+    <a href="index.html" class="logo">ECTRADE</a>
+    <nav id="mainNav">
+      <a href="index.html">Home</a>
+      <a href="services.html">Services</a>
+      <a href="industries.html" class="active">Industries</a>
+      <a href="commodities.html">Commodities</a>
+      <a href="insights.html">Insights</a>
+      <a href="contact.html" class="nav-cta">Contact Us</a>
+    </nav>
+    <button class="menu-toggle" id="menuToggle" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<!-- ═ PAGE HERO — Coal-toned gradient ═ -->
+<div class="page-hero hero-coal">
+  <div class="hero-grid"></div>
+  <div class="hero-lines"></div>
+  <div class="page-hero-content">
+    <span class="page-hero-tag">Sectors We Cover</span>
+    <h1>Industries We Serve</h1>
+    <p>ECTRADE focuses its expertise in three physical commodity sectors — High-Thermal Coal, Metals &amp; Mining, and Fertilizers &amp; Agri Products — where our network and knowledge deliver measurable brokerage value.</p>
+  </div>
+</div>
+
+<!-- ═ SECTOR QUICK-NAV ═ -->
+<nav class="sector-nav">
+  <div class="sector-nav-inner">
+    <a href="#coal"        class="active">High-Thermal Coal</a>
+    <a href="#metals">Metals &amp; Mining</a>
+    <a href="#fertilizers">Fertilizers &amp; Agri</a>
+  </div>
+</nav>
+
+<!-- ═══════════════════════════════════════
+     SECTOR 1: HIGH-THERMAL COAL
+════════════════════════════════════════ -->
+<section class="industry-block-section" id="coal">
+  <div class="container">
+    <div class="industry-block">
+
+      <div class="ind-visual">
+        <div class="ind-panel ind-panel-coal">
+          <div class="ind-panel-label">High-Thermal Coal</div>
+        </div>
+        <div class="ind-badge">
+          <span class="badge-label">Primary Sector</span>
+          <span class="badge-val">Coal Brokerage</span>
+        </div>
+      </div>
+
+      <div class="ind-text">
+        <span class="section-label">Sector 01</span>
+        <h2 class="section-title">High-Thermal Grade Coal</h2>
+        <div class="gold-bar"></div>
+        <p class="section-sub">ECTRADE's primary brokerage activity centres on high-thermal grade coal — facilitating physical transactions between exporters, trading companies and power or industrial buyers across global import corridors.</p>
+        <p style="font-size:.86rem;color:var(--steel);line-height:1.75;margin-top:1rem">We work across the full range of high-thermal grades, from standard 5,500 kcal NAR to premium 6,300 kcal GAR, and facilitate trades on Handysize through Panamax vessels depending on cargo size.</p>
+
+        <div class="ind-tags">
+          <span class="ind-tag">5,500 NAR</span>
+          <span class="ind-tag">5,800 NAR</span>
+          <span class="ind-tag">6,000 NAR</span>
+          <span class="ind-tag">6,300 GAR</span>
+          <span class="ind-tag">Indonesia</span>
+          <span class="ind-tag">South Africa</span>
+          <span class="ind-tag">Colombia</span>
+          <span class="ind-tag">Australia</span>
+        </div>
+
+        <table class="spec-table">
+          <tr><td>Calorific Values</td>       <td>5,500 – 6,300 kcal/kg GAR</td></tr>
+          <tr><td>Total Moisture (TM)</td>    <td>≤ 25% (grade dependent)</td></tr>
+          <tr><td>Ash Content</td>            <td>≤ 12% (air-dried basis)</td></tr>
+          <tr><td>Sulphur</td>                <td>≤ 1.0%</td></tr>
+          <tr><td>HGI</td>                    <td>≥ 45 (typically 50–55)</td></tr>
+          <tr><td>Typical Cargo Sizes</td>    <td>25,000 – 80,000 MT</td></tr>
+          <tr><td>Vessel Types</td>           <td>Handysize, Supramax, Panamax</td></tr>
+          <tr><td>Incoterms</td>              <td>FOB, CFR, CIF</td></tr>
+          <tr><td>Pricing Reference</td>      <td>API4, API5, ICI2/3/4 index-linked</td></tr>
+          <tr><td>Key Load Ports</td>         <td>Richards Bay, Kalimantan, Balikpapan, Bolivar</td></tr>
+        </table>
+
+        <a href="contact.html" class="btn-primary" style="margin-top:2rem">Enquire About Coal →</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     SECTOR 2: METALS & MINING
+════════════════════════════════════════ -->
+<section class="industry-block-section" id="metals">
+  <div class="container">
+    <div class="industry-block reverse">
+
+      <div class="ind-visual">
+        <div class="ind-panel ind-panel-metals">
+          <div class="ind-panel-label">Metals &amp; Mining</div>
+        </div>
+        <div class="ind-badge">
+          <span class="badge-label">Core Sector</span>
+          <span class="badge-val">Metals Brokerage</span>
+        </div>
+      </div>
+
+      <div class="ind-text">
+        <span class="section-label">Sector 02</span>
+        <h2 class="section-title">Metals &amp; Mining</h2>
+        <div class="gold-bar"></div>
+        <p class="section-sub">We facilitate physical metals transactions — connecting steel mills, mining companies, trading houses and industrial end-users across the key iron ore, steel products and copper corridors.</p>
+
+        <div style="margin-top:1.75rem;display:flex;flex-direction:column;gap:1rem">
+
+          <div class="sub-product">
+            <div class="sub-product-header">
+              <span class="sub-product-title">Steel Products &amp; Iron Ore</span>
+            </div>
+            <p>Steel Billets 3SP/5SP, Hot-Rolled Coil (HRC) and Wire Rod — alongside Iron Ore lump, fines and pellet feed. Origins: Australia, Brazil (ore) · Turkey, CIS (steel). Basis: FOB, CFR, CIF.</p>
+            <div class="ind-tags" style="margin:0">
+              <span class="ind-tag">Steel Billets</span>
+              <span class="ind-tag">HRC</span>
+              <span class="ind-tag">Wire Rod</span>
+              <span class="ind-tag">Iron Ore 62% Fe</span>
+              <span class="ind-tag">Pellet Feed</span>
+            </div>
+          </div>
+
+          <div class="sub-product">
+            <div class="sub-product-header">
+              <span class="sub-product-title">Copper</span>
+            </div>
+            <p>Copper Cathode Grade A (BS EN 1978) and Copper Concentrate. Primary origins: Chile, Peru, DRC. Pricing reference: LME Cash / 3-Month. Basis: CIF, FOB. Lot size: 500–5,000 MT (cathode).</p>
+            <div class="ind-tags" style="margin:0">
+              <span class="ind-tag">Copper Cathode Grade A</span>
+              <span class="ind-tag">Copper Concentrate</span>
+              <span class="ind-tag">LME Referenced</span>
+            </div>
+          </div>
+
+        </div>
+
+        <a href="contact.html" class="btn-primary" style="margin-top:2rem">Enquire About Metals →</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     SECTOR 3: FERTILIZERS & AGRI
+════════════════════════════════════════ -->
+<section class="industry-block-section" id="fertilizers">
+  <div class="container">
+    <div class="industry-block">
+
+      <div class="ind-visual">
+        <div class="ind-panel ind-panel-fert">
+          <div class="ind-panel-label">Fertilizers &amp; Agri</div>
+        </div>
+        <div class="ind-badge">
+          <span class="badge-label">Core Sector</span>
+          <span class="badge-val">Fertilizer Brokerage</span>
+        </div>
+      </div>
+
+      <div class="ind-text">
+        <span class="section-label">Sector 03</span>
+        <h2 class="section-title">Fertilizers &amp; Agri Products</h2>
+        <div class="gold-bar"></div>
+        <p class="section-sub">Our fertilizer brokerage leads with nitrogen and phosphate products — Urea, DAP and NPK complexes — supported by secondary activities in grains and raw sugar where our network adds value.</p>
+
+        <div style="margin-top:1.75rem;display:flex;flex-direction:column;gap:1rem">
+
+          <div class="sub-product">
+            <div class="sub-product-header">
+              <span class="sub-product-title">Fertilizers</span>
+              <span class="sub-badge badge-primary">Primary</span>
+            </div>
+            <p>Granular and Prilled Urea, DAP 18-46-0, NPK blends, MOP and Ammonium Sulphate. Origins: Middle East, Russia, Egypt, Algeria, Morocco (OCP). Cargo: 5,000–50,000 MT, FOB / CFR / CIF. Pricing: Argus / ICIS benchmark.</p>
+            <div class="ind-tags" style="margin:0">
+              <span class="ind-tag">Urea Granular</span>
+              <span class="ind-tag">Urea Prilled</span>
+              <span class="ind-tag">DAP 18-46-0</span>
+              <span class="ind-tag">NPK Complex</span>
+              <span class="ind-tag">MOP</span>
+            </div>
+          </div>
+
+          <div class="sub-product secondary">
+            <div class="sub-product-header">
+              <span class="sub-product-title">Grains &amp; Sugar</span>
+              <span class="sub-badge badge-secondary">Secondary</span>
+            </div>
+            <p>Wheat, Corn, Soybeans and Raw Sugar ICUMSA 45 — connecting Black Sea, LATAM and SE Asian origins with global importing markets. Basis: FOB, CFR, CIF. Cargo: 5,000–55,000 MT.</p>
+            <div class="ind-tags" style="margin:0">
+              <span class="ind-tag">Wheat</span>
+              <span class="ind-tag">Corn / Maize</span>
+              <span class="ind-tag">Soybeans</span>
+              <span class="ind-tag">Raw Sugar ICUMSA 45</span>
+            </div>
+          </div>
+
+        </div>
+
+        <a href="contact.html" class="btn-primary" style="margin-top:2rem">Enquire About Fertilizers →</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═ CTA ═ -->
+<section class="cta-band">
+  <div class="container">
+    <div class="cta-inner">
+      <h2>Active in Any of These Sectors?</h2>
+      <p>Whether you are buying or selling, ECTRADE can connect you with the right counterparty.</p>
+      <div class="cta-actions">
+        <a href="contact.html" class="btn-dark">Submit a Trade Enquiry →</a>
+        <a href="commodities.html" class="btn-outline-dark">Commodity Directory</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═ FOOTER ═ -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="logo">ECTRADE</a>
+        <p>Independent physical commodity broker facilitating global trade in High-Thermal Coal, Metals and Fertilizers.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Services</h4>
+        <a href="services.html">Trade Facilitation</a>
+        <a href="services.html">Market Intelligence</a>
+        <a href="services.html">Deal Structuring</a>
+        <a href="services.html">Logistics Advisory</a>
+      </div>
+      <div class="footer-col">
+        <h4>Sectors</h4>
+        <a href="industries.html">High-Thermal Coal</a>
+        <a href="industries.html">Metals &amp; Mining</a>
+        <a href="industries.html">Fertilizers &amp; Agri</a>
+        <a href="commodities.html">Commodity Directory</a>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <a href="insights.html">Insights</a>
+        <a href="contact.html">Contact Us</a>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Use</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 ECTRADE. All rights reserved. Independent commodity brokerage. Prices are indicative reference data only.</p>
+      <div class="footer-socials">
+        <a href="#" class="social-btn">in</a>
+        <a href="#" class="social-btn">𝕏</a>
+        <a href="mailto:trade@vnadvisory.in" class="social-btn" title="Email">@</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ═ EXPERT CHAT ═ -->
+<div class="chat-popup" id="chatPopup">
+  <div class="chat-panel" id="chatPanel">
+    <div class="chat-panel-header">
+      <span>Trade Expert</span>
+      <button class="chat-close-btn" id="chatCloseBtn">&#10005;</button>
+    </div>
+    <div class="chat-body" id="chatBody"></div>
+    <div class="chat-menu-btns" id="chatMenuBtns"></div>
+  </div>
+  <button class="chat-btn" id="chatBtn" title="Ask a trade expert">Chat</button>
+</div>
+
+<script src="script.js"></script>
+<script>
+// Sticky sector nav highlight on scroll
+const snItems = [
+  { id: 'coal',         el: document.querySelector('.sector-nav a[href="#coal"]') },
+  { id: 'metals',       el: document.querySelector('.sector-nav a[href="#metals"]') },
+  { id: 'fertilizers',  el: document.querySelector('.sector-nav a[href="#fertilizers"]') },
+];
+window.addEventListener('scroll', () => {
+  snItems.forEach(s => {
+    const sec = document.getElementById(s.id);
+    if (!sec || !s.el) return;
+    const r = sec.getBoundingClientRect();
+    s.el.classList.toggle('active', r.top <= 200 && r.bottom > 200);
+  });
+}, { passive: true });
+</script>
+</body>
+</html>
