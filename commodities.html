@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="VN Trade commodity reference — Coal, Metals, Fertilizers and Agri Products with indicative pricing.">
+<title>Commodities | VN Trade</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600;700&family=Barlow+Condensed:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+.commodity-table-section { padding: 80px 0; }
+.table-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.ref-note {
+  font-size: 0.74rem; color: var(--slate);
+  border-top: 1px solid var(--border); padding: 1rem 1.25rem;
+  font-family: var(--font-mono);
+}
+/* quality spec grid */
+.spec-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; margin-top: 3rem; }
+.spec-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.75rem; }
+.spec-card h3 { font-family: var(--font-display); font-size: 1.15rem; color: var(--navy); margin-bottom: 0.65rem; }
+.spec-card p { font-size: 0.84rem; color: var(--slate); line-height: 1.7; }
+.spec-list { list-style: none; margin-top: 0.9rem; display: flex; flex-direction: column; gap: 0.35rem; }
+.spec-list li { font-size: 0.8rem; color: var(--slate); display: flex; align-items: center; gap: 0.5rem; }
+.spec-list li::before { content:''; width:4px;height:4px;border-radius:50%;background:var(--blue);flex-shrink:0; }
+@media(max-width:768px){ .spec-grid{grid-template-columns:1fr;} }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="site-header solid" role="banner">
+  <a href="index.html" class="nav-logo" aria-label="VN Trade Home">
+    <span class="logo-vn">VN</span>
+    <span class="logo-trade">Trade</span>
+  </a>
+  <nav aria-label="Primary">
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="commodities.html" class="active">Commodities</a></li>
+      <li><a href="industries.html">Industries</a></li>
+      <li><a href="market.html">Market</a></li>
+      <li><a href="contact.html" class="nav-cta">Enquire</a></li>
+    </ul>
+  </nav>
+  <button class="nav-burger" aria-label="Toggle navigation" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+
+<!-- PAGE HERO -->
+<div class="page-hero" role="banner">
+  <div class="container">
+    <span class="section-label fade-in">Commodity Directory</span>
+    <h1 class="section-title fade-in">Full commodity reference</h1>
+    <p class="section-sub fade-in">A complete reference of the physical commodities VN Trade facilitates across coal, metals, fertilizers and agri. Indicative reference data only — not an offer to buy or sell.</p>
+  </div>
+</div>
+
+<!-- TABLE SECTION -->
+<section class="commodity-table-section" aria-labelledby="table-title">
+  <div class="container">
+
+    <!-- FILTERS -->
+    <div class="filter-bar fade-in" role="toolbar" aria-label="Commodity filters">
+      <button class="filter-btn active" data-filter="all">All Sectors</button>
+      <button class="filter-btn" data-filter="coal">Coal</button>
+      <button class="filter-btn" data-filter="metals">Metals</button>
+      <button class="filter-btn" data-filter="fert">Fertilizers</button>
+      <button class="filter-btn" data-filter="agri">Agri</button>
+    </div>
+
+    <div class="table-card fade-in">
+      <div class="data-table-wrap">
+        <table class="data-table" role="table" aria-label="Commodity reference table">
+          <thead>
+            <tr>
+              <th>Commodity</th>
+              <th>Sector</th>
+              <th>Indicative Price</th>
+              <th>Unit</th>
+              <th>Origin</th>
+              <th>Typical Basis</th>
+              <th>Cargo Size</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- COAL -->
+            <tr data-sector="coal">
+              <td>Thermal Coal 6,300 GAR</td>
+              <td><span class="badge badge-coal">Coal</span></td>
+              <td class="mono">$108.50</td><td>USD/t</td>
+              <td>Indonesia / Australia</td><td>FOB / CFR</td><td>50,000 – 75,000 MT</td>
+            </tr>
+            <tr data-sector="coal">
+              <td>Thermal Coal 6,000 NAR</td>
+              <td><span class="badge badge-coal">Coal</span></td>
+              <td class="mono">$102.00</td><td>USD/t</td>
+              <td>Indonesia / RSA</td><td>FOB / CFR</td><td>50,000 – 75,000 MT</td>
+            </tr>
+            <tr data-sector="coal">
+              <td>Thermal Coal 5,800 NAR</td>
+              <td><span class="badge badge-coal">Coal</span></td>
+              <td class="mono">$88.00</td><td>USD/t</td>
+              <td>Indonesia</td><td>FOB</td><td>35,000 – 55,000 MT</td>
+            </tr>
+            <tr data-sector="coal">
+              <td>Thermal Coal 5,500 NAR</td>
+              <td><span class="badge badge-coal">Coal</span></td>
+              <td class="mono">$72.30</td><td>USD/t</td>
+              <td>Indonesia</td><td>FOB</td><td>25,000 – 50,000 MT</td>
+            </tr>
+            <tr data-sector="coal">
+              <td>Richards Bay Coal (RSA)</td>
+              <td><span class="badge badge-coal">Coal</span></td>
+              <td class="mono">$95.00</td><td>USD/t</td>
+              <td>South Africa</td><td>FOB Richards Bay</td><td>50,000 – 80,000 MT</td>
+            </tr>
+            <!-- METALS -->
+            <tr data-sector="metals">
+              <td>Iron Ore Fines 62% Fe</td>
+              <td><span class="badge badge-metals">Metals</span></td>
+              <td class="mono">$108.00</td><td>USD/dmt</td>
+              <td>Australia / Brazil</td><td>CFR China</td><td>80,000 – 170,000 MT</td>
+            </tr>
+            <tr data-sector="metals">
+              <td>Iron Ore Lump 63.5% Fe</td>
+              <td><span class="badge badge-metals">Metals</span></td>
+              <td class="mono">$124.00</td><td>USD/dmt</td>
+              <td>Australia</td><td>CFR</td><td>80,000 – 150,000 MT</td>
+            </tr>
+            <tr data-sector="metals">
+              <td>Steel Billets 3SP</td>
+              <td><span class="badge badge-metals">Metals</span></td>
+              <td class="mono">$490.00</td><td>USD/t</td>
+              <td>CIS / Turkey</td><td>FOB / CFR</td><td>10,000 – 30,000 MT</td>
+            </tr>
+            <tr data-sector="metals">
+              <td>HRC Hot-Rolled Coil</td>
+              <td><span class="badge badge-metals">Metals</span></td>
+              <td class="mono">$520.00</td><td>USD/t</td>
+              <td>CIS / Turkey</td><td>CFR SEA</td><td>5,000 – 25,000 MT</td>
+            </tr>
+            <tr data-sector="metals">
+              <td>Copper Cathode Grade A</td>
+              <td><span class="badge badge-metals">Metals</span></td>
+              <td class="mono">$9,450</td><td>USD/t LME</td>
+              <td>Chile / Peru / DRC</td><td>CIF / FOB</td><td>500 – 5,000 MT</td>
+            </tr>
+            <tr data-sector="metals">
+              <td>Copper Concentrate (25–30% Cu)</td>
+              <td><span class="badge badge-metals">Metals</span></td>
+              <td class="mono">Spot</td><td>TC/RC basis</td>
+              <td>Chile / Peru</td><td>CIF Smelter</td><td>5,000 – 20,000 WMT</td>
+            </tr>
+            <!-- FERTILIZERS -->
+            <tr data-sector="fert">
+              <td>Urea Granular 46% N</td>
+              <td><span class="badge badge-fert">Fertilizer</span></td>
+              <td class="mono">$298.00</td><td>USD/t</td>
+              <td>Middle East / Russia / Egypt</td><td>FOB / CFR</td><td>5,000 – 50,000 MT</td>
+            </tr>
+            <tr data-sector="fert">
+              <td>Urea Prilled 46% N</td>
+              <td><span class="badge badge-fert">Fertilizer</span></td>
+              <td class="mono">$292.00</td><td>USD/t</td>
+              <td>Middle East / Russia</td><td>FOB / CFR</td><td>5,000 – 25,000 MT</td>
+            </tr>
+            <tr data-sector="fert">
+              <td>DAP 18-46-0</td>
+              <td><span class="badge badge-fert">Fertilizer</span></td>
+              <td class="mono">$562.00</td><td>USD/t</td>
+              <td>Morocco / Saudi Arabia</td><td>FOB / CFR</td><td>5,000 – 30,000 MT</td>
+            </tr>
+            <tr data-sector="fert">
+              <td>NPK 15-15-15</td>
+              <td><span class="badge badge-fert">Fertilizer</span></td>
+              <td class="mono">$380.00</td><td>USD/t</td>
+              <td>Russia / Lithuania</td><td>FOB / CFR</td><td>2,000 – 20,000 MT</td>
+            </tr>
+            <tr data-sector="fert">
+              <td>MOP (Muriate of Potash)</td>
+              <td><span class="badge badge-fert">Fertilizer</span></td>
+              <td class="mono">$285.00</td><td>USD/t</td>
+              <td>Canada / Belarus</td><td>CFR</td><td>5,000 – 25,000 MT</td>
+            </tr>
+            <tr data-sector="fert">
+              <td>Ammonium Sulphate</td>
+              <td><span class="badge badge-fert">Fertilizer</span></td>
+              <td class="mono">$118.00</td><td>USD/t</td>
+              <td>China / Europe</td><td>FOB / CFR</td><td>2,000 – 15,000 MT</td>
+            </tr>
+            <!-- AGRI -->
+            <tr data-sector="agri">
+              <td>Wheat (Milling) Black Sea</td>
+              <td><span class="badge badge-agri">Agri</span></td>
+              <td class="mono">$218.00</td><td>USD/t</td>
+              <td>Russia / Ukraine</td><td>FOB / CFR</td><td>10,000 – 55,000 MT</td>
+            </tr>
+            <tr data-sector="agri">
+              <td>Corn (Maize)</td>
+              <td><span class="badge badge-agri">Agri</span></td>
+              <td class="mono">$196.00</td><td>USD/t</td>
+              <td>Ukraine / Brazil / Argentina</td><td>FOB / CFR</td><td>10,000 – 55,000 MT</td>
+            </tr>
+            <tr data-sector="agri">
+              <td>Soybeans</td>
+              <td><span class="badge badge-agri">Agri</span></td>
+              <td class="mono">$382.00</td><td>USD/t</td>
+              <td>Brazil / Argentina / USA</td><td>FOB / CFR</td><td>5,000 – 55,000 MT</td>
+            </tr>
+            <tr data-sector="agri">
+              <td>Raw Sugar ICUMSA 45</td>
+              <td><span class="badge badge-agri">Agri</span></td>
+              <td class="mono">$408.00</td><td>USD/t</td>
+              <td>Brazil / Thailand</td><td>FOB / CFR</td><td>5,000 – 25,000 MT</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="ref-note">* Indicative reference prices only. Not an offer to buy or sell. Contact VN Trade for current market indications, live pricing and cargo availability.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- QUALITY SPECS -->
+<section class="bg-surface" aria-labelledby="spec-title">
+  <div class="container">
+    <span class="section-label fade-in">Specifications</span>
+    <h2 class="section-title fade-in" id="spec-title">Key trade specifications</h2>
+    <div class="spec-grid">
+      <div class="spec-card fade-in">
+        <h3>Coal Quality</h3>
+        <p>We facilitate across the 5,500 – 6,300 kcal/kg GAR range. Standard quality parameters conforming to major benchmark specs.</p>
+        <ul class="spec-list">
+          <li>Calorific Value: 5,500 – 6,300 kcal/kg GAR</li>
+          <li>Moisture: 8 – 25% (total)</li>
+          <li>Ash: 3 – 15% (as received)</li>
+          <li>Sulphur: 0.2 – 1.0% (as received)</li>
+          <li>Vessel: Handysize to Panamax</li>
+        </ul>
+      </div>
+      <div class="spec-card fade-in">
+        <h3>Metals Specifications</h3>
+        <p>Iron ore, steel and copper specifications aligned to international industry-standard contracts and exchange references.</p>
+        <ul class="spec-list">
+          <li>Iron Ore: 58 – 65% Fe, various size fractions</li>
+          <li>Steel Billets: 3SP / 5SP, JIS G3108</li>
+          <li>HRC: ASTM A1011 / JIS G3131</li>
+          <li>Copper Cathode: Grade A, BS EN 1978</li>
+          <li>Pricing: LME Cash / 3-Month</li>
+        </ul>
+      </div>
+      <div class="spec-card fade-in">
+        <h3>Fertilizer &amp; Agri Quality</h3>
+        <p>Fertilizer trades conform to IFA / IFIA standard requirements. Agri cargoes to buyers' specification sheets and phytosanitary requirements.</p>
+        <ul class="spec-list">
+          <li>Urea: 46% N min, granular or prilled</li>
+          <li>DAP: 18% N, 46% P2O5 min</li>
+          <li>Sugar: ICUMSA 45 max (white / raw)</li>
+          <li>Wheat: Protein 10.5% min (milling grade)</li>
+          <li>Certification: SGS / Cotecna on shipment</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="cta-band fade-in" role="region" aria-label="Trade enquiry call to action">
+  <div class="container">
+    <h2 class="section-title">Need a specific commodity?</h2>
+    <p class="section-sub">If you need something not listed here, contact us. Our network is broad and our matching is precise.</p>
+    <div class="btn-group" style="margin-top:1.75rem">
+      <a href="contact.html" class="btn btn-primary">Submit Enquiry</a>
+      <a href="market.html" class="btn btn-ghost">View Market Data</a>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="site-footer" role="contentinfo">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="nav-logo footer-logo">
+          <span class="logo-vn">VN</span>
+          <span class="logo-trade">Trade</span>
+        </a>
+        <p>Independent physical commodity facilitation in Coal, Metals, Fertilizers and Agri Products.</p>
+      </div>
+      <div class="footer-col"><h4>Navigation</h4><ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="commodities.html">Commodities</a></li>
+        <li><a href="industries.html">Industries</a></li>
+        <li><a href="market.html">Market</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Sectors</h4><ul>
+        <li><a href="industries.html#coal">High-Thermal Coal</a></li>
+        <li><a href="industries.html#metals">Metals &amp; Mining</a></li>
+        <li><a href="industries.html#fertilizers">Fertilizers</a></li>
+        <li><a href="industries.html#agri">Agri Products</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Contact</h4><ul>
+        <li><a href="mailto:info@vntrade.in">info@vntrade.in</a></li>
+        <li><a href="contact.html">Trade Enquiry</a></li>
+      </ul></div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 VN Trade. Prices are indicative reference data only.</p>
+      <p><a href="mailto:info@vntrade.in">info@vntrade.in</a></p>
+    </div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

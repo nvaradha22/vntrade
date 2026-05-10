@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Contact VN Trade — submit your trade enquiry for Coal, Metals, Fertilizers or Agri Products. info@vntrade.in">
+<title>Contact | VN Trade</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600;700&family=Barlow+Condensed:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+.contact-layout {
+  display: grid; grid-template-columns: 1fr 440px; gap: 4rem; align-items: start;
+}
+.form-card {
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 2.5rem;
+}
+.form-card-title {
+  font-family: var(--font-display); font-size: 1.5rem;
+  color: var(--navy); margin-bottom: 0.35rem;
+}
+.form-card-sub { font-size: 0.84rem; color: var(--slate); line-height: 1.65; margin-bottom: 2rem; }
+.contact-info { display: flex; flex-direction: column; gap: 1.5rem; }
+.info-block {
+  background: var(--white); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 1.5rem;
+}
+.info-block h4 {
+  font-size: 0.65rem; font-weight: 700; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--slate); margin-bottom: 0.65rem;
+}
+.info-block a, .info-block p {
+  font-size: 0.9rem; color: var(--navy); line-height: 1.6;
+}
+.info-block a { transition: color var(--transition); }
+.info-block a:hover { color: var(--cobalt); }
+.trust-items { display: flex; flex-direction: column; gap: 0.65rem; margin-top: 0.35rem; }
+.trust-item {
+  display: flex; align-items: flex-start; gap: 0.75rem;
+  font-size: 0.82rem; color: var(--slate); line-height: 1.55;
+}
+.trust-item::before {
+  content: ''; flex-shrink: 0;
+  width: 5px; height: 5px; border-radius: 50%;
+  background: var(--cobalt); margin-top: 0.45rem;
+}
+/* FAQ */
+.faq-list { margin-top: 3rem; }
+.faq-item { border-bottom: 1px solid var(--border); }
+.faq-q {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 1.1rem 0; cursor: pointer;
+  font-size: 0.9rem; font-weight: 500; color: var(--navy);
+  transition: color var(--transition);
+  list-style: none; user-select: none;
+}
+.faq-q:hover { color: var(--navy); }
+.faq-q::after {
+  content: '+'; font-size: 1.2rem; color: var(--slate);
+  transition: transform var(--transition), color var(--transition);
+  flex-shrink: 0;
+}
+.faq-item.open .faq-q { color: var(--cobalt); }
+.faq-item.open .faq-q::after { transform: rotate(45deg); color: var(--cobalt); }
+.faq-a {
+  max-height: 0; overflow: hidden;
+  transition: max-height 0.4s ease, padding 0.3s ease;
+}
+.faq-item.open .faq-a { max-height: 300px; padding-bottom: 1.1rem; }
+.faq-a p { font-size: 0.84rem; color: var(--slate); line-height: 1.75; }
+@media(max-width:1024px){
+  .contact-layout{ grid-template-columns:1fr; gap:2.5rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="site-header solid" role="banner">
+  <a href="index.html" class="nav-logo" aria-label="VN Trade Home">
+    <span class="logo-vn">VN</span><span class="logo-trade">Trade</span>
+  </a>
+  <nav aria-label="Primary">
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="commodities.html">Commodities</a></li>
+      <li><a href="industries.html">Industries</a></li>
+      <li><a href="market.html">Market</a></li>
+      <li><a href="contact.html" class="nav-cta active">Enquire</a></li>
+    </ul>
+  </nav>
+  <button class="nav-burger" aria-label="Toggle navigation" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+
+<!-- PAGE HERO -->
+<div class="page-hero" role="banner">
+  <div class="container">
+    <span class="section-label fade-in">Get in Touch</span>
+    <h1 class="section-title fade-in">Submit a trade enquiry</h1>
+    <p class="section-sub fade-in">Describe your trade requirement and a VN Trade facilitator will respond within one business day. No obligation, no upfront fees.</p>
+  </div>
+</div>
+
+<!-- CONTACT SECTION -->
+<section aria-labelledby="contact-title">
+  <div class="container">
+    <div class="contact-layout">
+
+      <!-- FORM -->
+      <div class="form-card fade-in">
+        <h2 class="form-card-title" id="contact-title">Trade Enquiry Form</h2>
+        <p class="form-card-sub">Complete the form with your trade requirement. All information is treated in strict confidence and is not shared with any third party without your prior consent.</p>
+        <form id="contactForm" novalidate>
+          <div class="form-2col">
+            <div class="form-group">
+              <label class="form-label" for="firstName">First Name *</label>
+              <input type="text" id="firstName" name="firstName" class="form-input" placeholder="First name" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="lastName">Last Name *</label>
+              <input type="text" id="lastName" name="lastName" class="form-input" placeholder="Last name" required>
+            </div>
+          </div>
+          <div class="form-2col">
+            <div class="form-group">
+              <label class="form-label" for="company">Company *</label>
+              <input type="text" id="company" name="company" class="form-input" placeholder="Company name" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="role">Role</label>
+              <input type="text" id="role" name="role" class="form-input" placeholder="Your role / title">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="email">Business Email *</label>
+            <input type="email" id="email" name="email" class="form-input" placeholder="you@company.com" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="sector">Commodity Sector *</label>
+            <select id="sector" name="sector" class="form-select form-input" required>
+              <option value="" disabled selected>Select sector</option>
+              <option>High-Thermal Coal</option>
+              <option>Iron Ore</option>
+              <option>Steel Products</option>
+              <option>Copper</option>
+              <option>Urea / DAP / Fertilizers</option>
+              <option>Wheat / Corn / Grains</option>
+              <option>Raw Sugar</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="form-2col">
+            <div class="form-group">
+              <label class="form-label" for="direction">Buy or Sell *</label>
+              <select id="direction" name="direction" class="form-select form-input" required>
+                <option value="" disabled selected>Select</option>
+                <option>Buying</option>
+                <option>Selling</option>
+                <option>Both</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="volume">Volume (MT)</label>
+              <input type="text" id="volume" name="volume" class="form-input" placeholder="e.g. 25,000 MT">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="message">Trade Requirement *</label>
+            <textarea id="message" name="message" class="form-textarea" placeholder="Describe your requirement: commodity, specification, origin / destination, basis (FOB/CFR/CIF), timeline, and any other relevant detail..." required style="min-height:140px"></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center">Submit Enquiry</button>
+          <p style="font-size:0.72rem;color:var(--text-soft);margin-top:1rem;line-height:1.6">
+            By submitting this form you agree to VN Trade contacting you regarding your enquiry. Your details are not shared with third parties without your explicit consent.
+          </p>
+        </form>
+      </div>
+
+      <!-- SIDEBAR INFO -->
+      <div class="contact-info">
+        <div class="info-block fade-in">
+          <h4>Direct Contact</h4>
+          <a href="mailto:info@vntrade.in">info@vntrade.in</a>
+          <p style="margin-top:.35rem;font-size:.8rem;color:var(--text-soft)">We aim to respond to all enquiries within one business day.</p>
+        </div>
+        <div class="info-block fade-in">
+          <h4>What to include</h4>
+          <div class="trust-items">
+            <div class="trust-item">Commodity and grade / specification</div>
+            <div class="trust-item">Volume in metric tonnes</div>
+            <div class="trust-item">Trade basis (FOB, CFR or CIF)</div>
+            <div class="trust-item">Origin or destination port(s)</div>
+            <div class="trust-item">Preferred timeline or laycan</div>
+            <div class="trust-item">Any quality or certification requirements</div>
+          </div>
+        </div>
+        <div class="info-block fade-in">
+          <h4>Our model</h4>
+          <div class="trust-items">
+            <div class="trust-item">No upfront retainer or consultation fees</div>
+            <div class="trust-item">Commission earned only on deal completion</div>
+            <div class="trust-item">Full confidentiality at every stage</div>
+            <div class="trust-item">No principal positions — pure facilitation</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- FAQ -->
+    <div style="max-width:760px;margin-top:5rem" class="fade-in">
+      <span class="section-label">Common Questions</span>
+      <h2 class="section-title" style="margin-bottom:0.5rem">Frequently asked</h2>
+      <div class="faq-list" role="list">
+        <div class="faq-item" role="listitem">
+          <div class="faq-q" tabindex="0">How does VN Trade earn its fees?</div>
+          <div class="faq-a"><p>VN Trade earns a facilitation commission only upon successful completion of a trade. There are no upfront retainers or consultation fees. Our compensation is directly aligned with your outcome — we earn only when the deal closes.</p></div>
+        </div>
+        <div class="faq-item" role="listitem">
+          <div class="faq-q" tabindex="0">Is my enquiry kept confidential?</div>
+          <div class="faq-a"><p>All enquiries are treated with strict confidentiality. Your identity and commercial parameters are not shared with any third party without your explicit consent at each stage of the process.</p></div>
+        </div>
+        <div class="faq-item" role="listitem">
+          <div class="faq-q" tabindex="0">How quickly will you respond?</div>
+          <div class="faq-a"><p>We aim to respond to all enquiries within one business day. For time-sensitive requirements, please note urgency clearly in your message and we will prioritise accordingly.</p></div>
+        </div>
+        <div class="faq-item" role="listitem">
+          <div class="faq-q" tabindex="0">Does VN Trade hold commodity positions?</div>
+          <div class="faq-a"><p>No. VN Trade is a pure facilitator and holds no principal commodity positions. This independence allows us to represent the interests of both sides of a transaction without any conflict of interest.</p></div>
+        </div>
+        <div class="faq-item" role="listitem">
+          <div class="faq-q" tabindex="0">What commodities do you cover?</div>
+          <div class="faq-a"><p>Our current focus is: High-Thermal Grade Coal (5,500 – 6,300 kcal/kg GAR), Metals and Mining (Iron Ore, Steel Products, Copper) and Fertilizers and Agri Products (Urea, DAP, NPK, Wheat, Corn, Sugar). Contact us if your requirement falls outside these categories — our network is broad.</p></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="site-footer" role="contentinfo">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="nav-logo footer-logo">
+          <span class="logo-vn">VN</span>
+          <span class="logo-trade">Trade</span>
+        </a>
+        <p>Independent physical commodity facilitation in Coal, Metals, Fertilizers and Agri Products. No upfront fees. Commission on completion only.</p>
+      </div>
+      <div class="footer-col"><h4>Navigation</h4><ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="commodities.html">Commodities</a></li>
+        <li><a href="industries.html">Industries</a></li>
+        <li><a href="market.html">Market</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Sectors</h4><ul>
+        <li><a href="industries.html#coal">High-Thermal Coal</a></li>
+        <li><a href="industries.html#metals">Metals &amp; Mining</a></li>
+        <li><a href="industries.html#fertilizers">Fertilizers</a></li>
+        <li><a href="industries.html#agri">Agri Products</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Contact</h4><ul>
+        <li><a href="mailto:info@vntrade.in">info@vntrade.in</a></li>
+        <li><a href="contact.html">Trade Enquiry</a></li>
+      </ul></div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 VN Trade. All rights reserved.</p>
+      <p><a href="mailto:info@vntrade.in">info@vntrade.in</a></p>
+    </div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

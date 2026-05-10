@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="VN Trade industry sectors — Coal, Metals, Fertilizers, Agri. Deep-dive into our physical commodity facilitation focus.">
+<title>Industries | VN Trade</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;500;600;700&family=Barlow+Condensed:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+/* sector nav */
+.sector-nav {
+  position: sticky; top: var(--header-h); z-index: 50;
+  background: rgba(255,255,255,0.97); backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  overflow-x: auto;
+}
+.sector-nav-inner {
+  display: flex; gap: 0;
+  max-width: var(--max-w); margin: 0 auto; padding: 0 2.5rem;
+}
+.sector-nav a {
+  font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--slate);
+  padding: 1rem 1.25rem; white-space: nowrap;
+  border-bottom: 2px solid transparent;
+  transition: color var(--transition), border-color var(--transition);
+}
+.sector-nav a:hover { color: var(--navy); }
+.sector-nav a.active { color: var(--cobalt); border-bottom-color: var(--cobalt); }
+
+/* industry block */
+.ind-section { padding: 96px 0; }
+.ind-section:nth-child(even) { background: var(--cloud); }
+.ind-block {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center;
+}
+.ind-block.reverse .ind-visual { order: 2; }
+.ind-block.reverse .ind-text   { order: 1; }
+.ind-visual {
+  border-radius: var(--radius); overflow: hidden;
+  height: 420px; position: relative;
+}
+.iv-coal {
+  background:
+    radial-gradient(ellipse 70% 60% at 80% 25%, rgba(240,160,60,0.22) 0%, transparent 60%),
+    linear-gradient(145deg, #0C1510 0%, #1A2010 60%, #101C2E 100%);
+}
+.iv-metals {
+  background:
+    radial-gradient(ellipse 70% 60% at 80% 25%, rgba(78,158,255,0.2) 0%, transparent 60%),
+    linear-gradient(145deg, #0E1828 0%, #101E38 60%, #0B1620 100%);
+}
+.iv-fert {
+  background:
+    radial-gradient(ellipse 70% 60% at 80% 25%, rgba(61,203,135,0.18) 0%, transparent 60%),
+    linear-gradient(145deg, #0A1E10 0%, #0F2018 60%, #0B1C2E 100%);
+}
+.iv-agri {
+  background:
+    radial-gradient(ellipse 70% 60% at 80% 25%, rgba(190,200,58,0.18) 0%, transparent 60%),
+    linear-gradient(145deg, #181A08 0%, #1C200A 60%, #101820 100%);
+}
+.iv-hatch {
+  position: absolute; inset: 0; pointer-events: none; opacity: 0.05;
+  background-image: repeating-linear-gradient(
+    -45deg, transparent, transparent 12px,
+    rgba(255,255,255,.8) 12px, rgba(255,255,255,.8) 13px
+  );
+}
+.iv-stat {
+  position: absolute; bottom: 2rem; left: 2rem; right: 2rem;
+  display: flex; gap: 1rem; flex-wrap: wrap;
+}
+.iv-stat-item {
+  background: rgba(7,8,12,0.72); backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,0.12); border-radius: var(--radius);
+  padding: 0.75rem 1rem;
+}
+.iv-stat-item .sv { font-family: var(--font-mono); font-size: 1.1rem; color: #FFFFFF; font-weight: 500; }
+.iv-stat-item .sl { font-size: 0.68rem; color: rgba(255,255,255,0.55); text-transform: uppercase; letter-spacing: 0.08em; }
+.ind-text h2 { font-family: var(--font-display); font-size: clamp(1.7rem,3vw,2.4rem); font-weight: 700; color: var(--navy); margin-bottom: 0.75rem; }
+.ind-text .section-sub { margin-bottom: 1.5rem; color: var(--slate); }
+.ind-detail { margin-top: 1.5rem; display: flex; flex-direction: column; gap: 1rem; }
+.detail-item {
+  background: var(--cloud-2); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 1rem 1.25rem;
+}
+.detail-item h4 { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--cobalt); margin-bottom: 0.35rem; }
+.detail-item p { font-size: 0.83rem; color: var(--slate-dark); line-height: 1.65; }
+@media (max-width:1024px) {
+  .ind-block, .ind-block.reverse { grid-template-columns: 1fr; gap: 2.5rem; }
+  .ind-block.reverse .ind-visual, .ind-block.reverse .ind-text { order: 0; }
+  .ind-visual { height: 280px; }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="site-header solid" role="banner">
+  <a href="index.html" class="nav-logo" aria-label="VN Trade Home">
+    <span class="logo-vn">VN</span><span class="logo-trade">Trade</span>
+  </a>
+  <nav aria-label="Primary">
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="commodities.html">Commodities</a></li>
+      <li><a href="industries.html" class="active">Industries</a></li>
+      <li><a href="market.html">Market</a></li>
+      <li><a href="contact.html" class="nav-cta">Enquire</a></li>
+    </ul>
+  </nav>
+  <button class="nav-burger" aria-label="Toggle navigation" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+
+<!-- PAGE HERO -->
+<div class="page-hero" role="banner">
+  <div class="container">
+    <span class="section-label fade-in">Sector Coverage</span>
+    <h1 class="section-title fade-in">Industries we serve</h1>
+    <p class="section-sub fade-in">VN Trade focuses its expertise across four physical commodity sectors where our network and knowledge deliver measurable facilitation value.</p>
+  </div>
+</div>
+
+<!-- SECTOR NAV -->
+<nav class="sector-nav" aria-label="Sector navigation">
+  <div class="sector-nav-inner">
+    <a href="#coal">Coal</a>
+    <a href="#metals">Metals</a>
+    <a href="#fertilizers">Fertilizers</a>
+    <a href="#agri">Agri Products</a>
+  </div>
+</nav>
+
+<!-- COAL -->
+<section class="ind-section" id="coal" aria-labelledby="coal-title">
+  <div class="container">
+    <div class="ind-block fade-in">
+      <div class="ind-visual iv-coal">
+        <div class="iv-hatch"></div>
+        <div class="iv-stat">
+          <div class="iv-stat-item"><div class="sv">6,300</div><div class="sl">kcal GAR max</div></div>
+          <div class="iv-stat-item"><div class="sv">5,500</div><div class="sl">kcal NAR min</div></div>
+          <div class="iv-stat-item"><div class="sv">Panamax</div><div class="sl">vessel size</div></div>
+        </div>
+      </div>
+      <div class="ind-text">
+        <span class="section-label">Coal</span>
+        <h2 id="coal-title">High-Thermal Grade Coal</h2>
+        <p class="section-sub">VN Trade's primary facilitation activity centres on high-thermal grade coal — facilitating physical transactions between exporters, trading companies and power or industrial buyers across global import corridors.</p>
+        <p class="section-sub" style="margin-top:.75rem">We work across the full range of high-thermal grades, from standard 5,500 kcal NAR to premium 6,300 kcal GAR, and facilitate trades on Handysize through Panamax vessels depending on cargo size.</p>
+        <div class="ind-detail">
+          <div class="detail-item">
+            <h4>Key Origins</h4>
+            <p>Indonesia (Kalimantan), Australia (Hunter Valley / Queensland), South Africa (Richards Bay), Russia (Kuzbass). Primary export terminals: Balikpapan, Newcastle, RBCT.</p>
+          </div>
+          <div class="detail-item">
+            <h4>Import Corridors</h4>
+            <p>India (east and west coast ports), China, South Korea, Japan, Vietnam, Bangladesh, Pakistan — and power utilities across MENA and Sub-Saharan Africa.</p>
+          </div>
+          <div class="detail-item">
+            <h4>Trade Basis</h4>
+            <p>FOB, CFR and CIF. ASTM / ISO sampling and analysis. Pricing referenced to Argus McCloskey / Platts APAC indices. Surveyor: SGS / Cotecna at load and discharge.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- METALS -->
+<section class="ind-section" id="metals" aria-labelledby="metals-title">
+  <div class="container">
+    <div class="ind-block reverse fade-in">
+      <div class="ind-visual iv-metals">
+        <div class="iv-hatch"></div>
+        <div class="iv-stat">
+          <div class="iv-stat-item"><div class="sv">LME</div><div class="sl">price reference</div></div>
+          <div class="iv-stat-item"><div class="sv">62%</div><div class="sl">Fe benchmark</div></div>
+          <div class="iv-stat-item"><div class="sv">Grade A</div><div class="sl">copper spec</div></div>
+        </div>
+      </div>
+      <div class="ind-text">
+        <span class="section-label">Metals</span>
+        <h2 id="metals-title">Metals &amp; Mining</h2>
+        <p class="section-sub">We facilitate physical metals transactions — connecting steel mills, mining companies, trading houses and industrial end-users across the key iron ore, steel products and copper corridors.</p>
+        <div class="ind-detail">
+          <div class="detail-item">
+            <h4>Iron Ore</h4>
+            <p>Lump, fines and pellet feed. Fe range 58 – 65%. Origins: Australia (Pilbara), Brazil (Carajas). Capesize / Panamax vessels. Pricing: Platts IODEX 62% Fe CFR China.</p>
+          </div>
+          <div class="detail-item">
+            <h4>Steel Products</h4>
+            <p>Steel Billets 3SP / 5SP, Hot-Rolled Coil (HRC) and Wire Rod. Origins: Turkey, CIS. Basis: FOB, CFR, CIF. Lot size: 5,000 – 30,000 MT. Spec: JIS G3108 / ASTM A1011.</p>
+          </div>
+          <div class="detail-item">
+            <h4>Copper</h4>
+            <p>Copper Cathode Grade A (BS EN 1978) and Copper Concentrate (25 – 30% Cu). Origins: Chile, Peru, DRC. Pricing: LME Cash / 3-Month. Lot size: 500 – 5,000 MT cathode.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FERTILIZERS -->
+<section class="ind-section" id="fertilizers" aria-labelledby="fert-title">
+  <div class="container">
+    <div class="ind-block fade-in">
+      <div class="ind-visual iv-fert">
+        <div class="iv-hatch"></div>
+        <div class="iv-stat">
+          <div class="iv-stat-item"><div class="sv">Argus</div><div class="sl">price benchmark</div></div>
+          <div class="iv-stat-item"><div class="sv">IFA</div><div class="sl">quality standard</div></div>
+          <div class="iv-stat-item"><div class="sv">50k MT</div><div class="sl">max cargo size</div></div>
+        </div>
+      </div>
+      <div class="ind-text">
+        <span class="section-label">Fertilizers</span>
+        <h2 id="fert-title">Fertilizers &amp; Nutrients</h2>
+        <p class="section-sub">Our fertilizer facilitation leads with nitrogen and phosphate products — Urea, DAP and NPK complexes — connecting Middle Eastern, Russian, North African and South American producers with importing markets across Asia and Africa.</p>
+        <div class="ind-detail">
+          <div class="detail-item">
+            <h4>Nitrogen Products</h4>
+            <p>Granular and Prilled Urea (46% N), Ammonium Sulphate (21% N), Ammonium Nitrate. Origins: Middle East, Russia, Egypt, Algeria. Cargo: 5,000 – 50,000 MT, FOB / CFR / CIF.</p>
+          </div>
+          <div class="detail-item">
+            <h4>Phosphate &amp; Potash</h4>
+            <p>DAP 18-46-0, NPK blends, MOP (Muriate of Potash). Origins: Morocco (OCP), Saudi Arabia, Canada, Belarus. Pricing: Argus / ICIS benchmark. IFA quality compliance.</p>
+          </div>
+          <div class="detail-item">
+            <h4>Import Markets</h4>
+            <p>India, Bangladesh, Pakistan, Vietnam, Myanmar — and emerging markets across Sub-Saharan Africa and Latin America where agricultural input demand is growing fastest.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AGRI -->
+<section class="ind-section" id="agri" aria-labelledby="agri-title">
+  <div class="container">
+    <div class="ind-block reverse fade-in">
+      <div class="ind-visual iv-agri">
+        <div class="iv-hatch"></div>
+        <div class="iv-stat">
+          <div class="iv-stat-item"><div class="sv">ICUMSA</div><div class="sl">sugar standard</div></div>
+          <div class="iv-stat-item"><div class="sv">LATAM</div><div class="sl">primary origin</div></div>
+          <div class="iv-stat-item"><div class="sv">55k MT</div><div class="sl">max cargo</div></div>
+        </div>
+      </div>
+      <div class="ind-text">
+        <span class="section-label">Agri Products</span>
+        <h2 id="agri-title">Grains &amp; Soft Commodities</h2>
+        <p class="section-sub">Wheat, Corn, Soybeans and Raw Sugar — connecting Black Sea, LATAM and South Asian origins with global importing markets across South and South-East Asia.</p>
+        <div class="ind-detail">
+          <div class="detail-item">
+            <h4>Grains</h4>
+            <p>Wheat (Milling, Feed), Corn / Maize, Soybeans. Origins: Russia, Ukraine, Brazil, Argentina. Basis: FOB, CFR, CIF. Cargo: 10,000 – 55,000 MT. Phytosanitary certificates on all shipments.</p>
+          </div>
+          <div class="detail-item">
+            <h4>Raw Sugar</h4>
+            <p>Raw Sugar ICUMSA 45 (VHP). Origins: Brazil (Santos), Thailand. Basis: FOB / CFR. Cargo: 5,000 – 25,000 MT. Quality: ICUMSA 45 max, Pol 99.3% min, Moisture 0.15% max.</p>
+          </div>
+          <div class="detail-item">
+            <h4>Destination Markets</h4>
+            <p>India, Bangladesh, Indonesia, Vietnam, Philippines, Sri Lanka — across the high-growth demand corridor where food security policy drives sustained import volumes.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="cta-band fade-in" role="region">
+  <div class="container">
+    <h2 class="section-title">Active in any of these sectors?</h2>
+    <p class="section-sub">Whether you are buying or selling, VN Trade can connect you with the right counterparty.</p>
+    <div class="btn-group" style="margin-top:1.75rem">
+      <a href="contact.html" class="btn btn-primary">Submit Enquiry</a>
+      <a href="commodities.html" class="btn btn-ghost">View Commodities</a>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="site-footer" role="contentinfo">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="nav-logo footer-logo">
+          <span class="logo-vn">VN</span>
+          <span class="logo-trade">Trade</span>
+        </a>
+        <p>Independent physical commodity facilitation in Coal, Metals, Fertilizers and Agri Products.</p>
+      </div>
+      <div class="footer-col"><h4>Navigation</h4><ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="commodities.html">Commodities</a></li>
+        <li><a href="industries.html">Industries</a></li>
+        <li><a href="market.html">Market</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Sectors</h4><ul>
+        <li><a href="#coal">High-Thermal Coal</a></li>
+        <li><a href="#metals">Metals &amp; Mining</a></li>
+        <li><a href="#fertilizers">Fertilizers</a></li>
+        <li><a href="#agri">Agri Products</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Contact</h4><ul>
+        <li><a href="mailto:info@vntrade.in">info@vntrade.in</a></li>
+        <li><a href="contact.html">Trade Enquiry</a></li>
+      </ul></div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 VN Trade. All rights reserved.</p>
+      <p><a href="mailto:info@vntrade.in">info@vntrade.in</a></p>
+    </div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+<script>
+// Sector nav highlight on scroll
+(function () {
+  const sections = ['coal','metals','fertilizers','agri'].map(id => ({
+    id, el: document.querySelector(`.sector-nav a[href="#${id}"]`)
+  })).filter(s => s.el);
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        sections.forEach(s => s.el.classList.remove('active'));
+        const match = sections.find(s => s.id === e.target.id);
+        if (match) match.el.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-30% 0px -60% 0px' });
+  sections.forEach(s => { const el = document.getElementById(s.id); if (el) io.observe(el); });
+})();
+</script>
+</body>
+</html>
