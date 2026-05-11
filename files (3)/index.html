@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="VN Trade facilitates cross-border commodity transactions in Coal, Fertilizers, Metals and Agri products. Connecting principals across GCC, India and global corridors.">
+<title>VN Trade — Connecting Principals. Orchestrating Trade.</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&family=Noto+Sans+Arabic:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+
+/* ══════════════════════════════════════
+   HERO — CINEMATIC VIDEO
+══════════════════════════════════════ */
+.hero {
+  position: relative;
+  height: 100vh;
+  min-height: 640px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* Video fills the frame */
+.hero-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* Start hidden; JS fades in once loaded to avoid flash */
+  opacity: 0;
+  transition: opacity 1.2s ease;
+}
+.hero-video.loaded { opacity: 0.48; }
+
+/* Fallback — standalone CSS scene, no external dependency */
+/* Fallback photo — shown until video loads or if video unavailable */
+.hero-fallback {
+  position: absolute;
+  inset: 0;
+  background-image: url('hero-fallback.jpg');
+  background-size: cover;
+  background-position: center 40%;
+  opacity: 0.52;
+  transition: opacity 0.8s ease;
+}
+
+/* Hide fallback once video is playing */
+.hero-video.loaded ~ .hero-fallback { opacity: 0; }
+
+/* Layered dark overlay: heavier at top & bottom, lighter mid */
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to bottom,
+      rgba(7,17,30,0.82) 0%,
+      rgba(7,17,30,0.30) 35%,
+      rgba(7,17,30,0.30) 60%,
+      rgba(7,17,30,0.92) 100%
+    );
+}
+
+/* Subtle grain texture for cinematic feel */
+.hero-grain {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+}
+
+/* Gold thin line top — editorial detail */
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  z-index: 3;
+}
+
+/* Content */
+.hero-content {
+  position: relative;
+  z-index: 4;
+  text-align: center;
+  max-width: 880px;
+  padding: 0 32px;
+}
+.hero-eyebrow {
+  font-size: .66rem;
+  font-weight: 400;
+  letter-spacing: .34em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 30px;
+  opacity: 0;
+  animation: fadeUp .8s .5s forwards;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+.hero-eyebrow::before,
+.hero-eyebrow::after {
+  content: '';
+  display: block;
+  width: 36px;
+  height: 1px;
+  background: var(--gold);
+  opacity: .6;
+}
+.hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.8rem, 6.5vw, 5.2rem);
+  font-weight: 300;
+  line-height: 1.06;
+  color: var(--white);
+  margin-bottom: 30px;
+  opacity: 0;
+  animation: fadeUp .9s .7s forwards;
+  letter-spacing: -.01em;
+}
+.hero-title em { font-style: italic; color: var(--gold-light); }
+.hero-sub {
+  font-size: 1rem;
+  font-weight: 300;
+  line-height: 1.85;
+  color: var(--white-dim);
+  max-width: 560px;
+  margin: 0 auto 48px;
+  opacity: 0;
+  animation: fadeUp .9s .9s forwards;
+}
+.hero-actions {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  flex-wrap: wrap;
+  opacity: 0;
+  animation: fadeUp .8s 1.1s forwards;
+}
+
+/* Scroll indicator */
+.hero-scroll {
+  position: absolute;
+  bottom: 36px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  opacity: 0;
+  animation: fadeIn 1s 1.6s forwards;
+}
+.hero-scroll span {
+  font-size: .58rem;
+  letter-spacing: .28em;
+  text-transform: uppercase;
+  color: var(--white-dim);
+}
+.scroll-bar {
+  width: 1px;
+  height: 44px;
+  background: linear-gradient(to bottom, var(--gold), transparent);
+  animation: scrollPulse 2.2s ease-in-out infinite;
+}
+
+/* Corner markers — cinematic detail */
+.hero-corner {
+  position: absolute;
+  z-index: 4;
+  width: 20px;
+  height: 20px;
+  opacity: 0;
+  animation: fadeIn 1s 1.8s forwards;
+}
+.hero-corner--tl { top: 88px; left: 40px; border-top: 1px solid var(--gold); border-left: 1px solid var(--gold); }
+.hero-corner--tr { top: 88px; right: 40px; border-top: 1px solid var(--gold); border-right: 1px solid var(--gold); }
+.hero-corner--bl { bottom: 60px; left: 40px; border-bottom: 1px solid var(--gold); border-left: 1px solid var(--gold); }
+.hero-corner--br { bottom: 60px; right: 40px; border-bottom: 1px solid var(--gold); border-right: 1px solid var(--gold); }
+
+/* ══════════════════════════════════════
+   PROBLEM SECTION
+══════════════════════════════════════ */
+.problem-section { background: var(--navy-mid); padding: 100px 56px; }
+.problem-grid {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  border: 1px solid var(--border);
+  margin-top: 56px;
+}
+.problem-card {
+  padding: 48px 40px;
+  border-right: 1px solid var(--border);
+  transition: background .25s;
+}
+.problem-card:last-child { border-right: none; }
+.problem-card:hover { background: var(--navy-light); }
+.problem-num {
+  font-family: var(--font-display);
+  font-size: 3.2rem;
+  font-weight: 300;
+  color: var(--border);
+  line-height: 1;
+  margin-bottom: 24px;
+}
+.problem-card h3 {
+  font-size: 1.3rem;
+  font-weight: 400;
+  color: var(--white);
+  margin-bottom: 14px;
+  line-height: 1.3;
+}
+.problem-card p { font-size: .87rem; line-height: 1.8; color: var(--white-dim); }
+
+/* ══════════════════════════════════════
+   MARKET SIGNALS
+══════════════════════════════════════ */
+.signals-section { background: var(--navy); padding: 100px 56px; }
+.signals-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 52px;
+  padding-bottom: 28px;
+  border-bottom: 1px solid var(--border);
+}
+.signals-note {
+  font-size: .78rem;
+  color: var(--white-dim);
+  max-width: 320px;
+  text-align: right;
+  line-height: 1.6;
+}
+.rtl .signals-note { text-align: left; }
+.signals-grid {
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+}
+.signal-tile {
+  background: var(--navy-card);
+  padding: 36px 32px;
+  transition: background .2s;
+}
+.signal-tile:hover { background: var(--navy-light); }
+.signal-commodity {
+  font-size: .62rem;
+  letter-spacing: .28em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.signal-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); flex-shrink: 0; }
+.signal-tile p { font-size: .87rem; line-height: 1.75; color: var(--white-dim); }
+.signal-updated {
+  font-size: .6rem;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--white-dim);
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px solid var(--border-dim);
+}
+
+/* ══════════════════════════════════════
+   PORTFOLIO / INDUSTRIES TEASER
+══════════════════════════════════════ */
+.portfolio-section { background: var(--navy-mid); padding: 100px 56px; }
+.portfolio-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 52px;
+  padding-bottom: 28px;
+  border-bottom: 1px solid var(--border);
+}
+.portfolio-disclaimer {
+  font-size: .75rem;
+  color: var(--gold);
+  letter-spacing: .04em;
+  max-width: 300px;
+  text-align: right;
+  line-height: 1.6;
+}
+.rtl .portfolio-disclaimer { text-align: left; }
+.portfolio-grid {
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  gap: 16px;
+}
+.ptile {
+  border: 1px solid var(--border);
+  background: var(--navy-card);
+  padding: 40px 32px 52px;
+  position: relative;
+  overflow: hidden;
+  text-decoration: none;
+  display: block;
+  transition: border-color .3s, transform .3s;
+}
+.ptile::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--gold), transparent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .35s;
+}
+.ptile:hover { border-color: rgba(184,150,46,.5); transform: translateY(-5px); }
+.ptile:hover::after { transform: scaleX(1); }
+.ptile-icon { font-size: 1.8rem; margin-bottom: 22px; display: block; }
+.ptile-name {
+  font-family: var(--font-display);
+  font-size: 1.55rem;
+  font-weight: 400;
+  color: var(--white);
+  margin-bottom: 10px;
+  line-height: 1.2;
+}
+.ptile-tag {
+  font-size: .62rem;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 16px;
+  display: block;
+}
+.ptile-desc { font-size: .84rem; line-height: 1.72; color: var(--white-dim); }
+.ptile-arrow {
+  position: absolute;
+  bottom: 28px; right: 28px;
+  color: var(--gold);
+  font-size: 1.1rem;
+  opacity: 0;
+  transition: opacity .2s, transform .2s;
+}
+.rtl .ptile-arrow { right: auto; left: 28px; }
+.ptile:hover .ptile-arrow { opacity: 1; transform: translateX(4px); }
+.rtl .ptile:hover .ptile-arrow { transform: translateX(-4px); }
+
+/* ══════════════════════════════════════
+   PROCESS STRIP
+══════════════════════════════════════ */
+.process-strip {
+  background: var(--navy-light);
+  border-top: 1px solid var(--border);
+  padding: 96px 56px;
+}
+.process-steps {
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  border: 1px solid var(--border);
+  margin-top: 52px;
+}
+.process-step {
+  padding: 40px 32px;
+  border-right: 1px solid var(--border);
+  position: relative;
+}
+.process-step:last-child { border-right: none; }
+.step-num {
+  font-family: var(--font-display);
+  font-size: 2.8rem;
+  font-weight: 300;
+  color: var(--border);
+  line-height: 1;
+  margin-bottom: 20px;
+}
+.step-name {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 400;
+  color: var(--white);
+  margin-bottom: 12px;
+}
+.step-desc { font-size: .84rem; color: var(--white-dim); line-height: 1.72; }
+.process-footer {
+  margin-top: 40px;
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* ══════════════════════════════════════
+   RESPONSIVE
+══════════════════════════════════════ */
+@media(max-width:1000px) {
+  .signals-grid    { grid-template-columns: repeat(2,1fr); }
+  .portfolio-grid  { grid-template-columns: repeat(2,1fr); }
+  .process-steps   { grid-template-columns: repeat(2,1fr); }
+  .problem-grid    { grid-template-columns: 1fr; }
+  .problem-card    { border-right: none; border-bottom: 1px solid var(--border); }
+  .problem-card:last-child { border-bottom: none; }
+  .signals-header,
+  .portfolio-header { flex-direction: column; align-items: flex-start; gap: 16px; }
+  .signals-note,
+  .portfolio-disclaimer { text-align: left; }
+  .hero-corner { display: none; }
+}
+@media(max-width:640px) {
+  .signals-grid   { grid-template-columns: 1fr; }
+  .portfolio-grid { grid-template-columns: 1fr; }
+  .process-steps  { grid-template-columns: 1fr; }
+  .process-step   { border-right: none; border-bottom: 1px solid var(--border); }
+  .process-step:last-child { border-bottom: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- ══ NAV ══ -->
+<nav>
+  <a href="index.html" class="logo">
+    <span class="logo-vn">VN</span>
+    <div class="logo-rule"></div>
+    <span class="logo-trade">Trade</span>
+  </a>
+  <div class="nav-right">
+    <ul class="nav-links">
+      <li><a href="portfolio.html" data-t="nav_portfolio">Industries</a></li>
+      <li><a href="process.html"   data-t="nav_process">What We Do</a></li>
+      <li><a href="about.html"     data-t="nav_about">Who We Are</a></li>
+      <li><a href="engage.html" class="nav-cta" data-t="nav_cta">Contact</a></li>
+    </ul>
+    <div class="lang-switcher">
+      <button class="lang-btn active" data-lang="en">EN</button>
+      <button class="lang-btn" data-lang="ar">AR</button>
+      <button class="lang-btn" data-lang="nl">NL</button>
+    </div>
+  </div>
+</nav>
+
+<!-- ══ HERO ══ -->
+<section class="hero">
+
+  <!-- Video — replace src with your actual file -->
+  <video class="hero-video" id="heroVideo"
+         autoplay muted loop playsinline preload="auto">
+    <source src="Video_Project_4.mp4" type="video/mp4">
+  </video>
+
+  <!-- Fallback image (shown until video loads, or if video unavailable) -->
+  <div class="hero-fallback"></div>
+
+  <!-- Cinematic overlays -->
+  <div class="hero-overlay"></div>
+  <div class="hero-grain"></div>
+
+  <!-- Corner markers -->
+  <div class="hero-corner hero-corner--tl"></div>
+  <div class="hero-corner hero-corner--tr"></div>
+  <div class="hero-corner hero-corner--bl"></div>
+  <div class="hero-corner hero-corner--br"></div>
+
+  <!-- Content -->
+  <div class="hero-content">
+    <p class="hero-eyebrow" data-t="hero_eyebrow">
+      Trade Facilitation — Coal · Fertilizers · Metals · Agri
+    </p>
+    <h1 class="hero-title" data-t="hero_title">
+      Connecting Principals.<br><em>Orchestrating Trade.</em>
+    </h1>
+    <p class="hero-sub" data-t="hero_sub">
+      VN Trade facilitates cross-border commodity transactions — connecting counterparties, structuring engagements, and ensuring deals that should happen, do happen.
+    </p>
+    <div class="hero-actions">
+      <a href="portfolio.html" class="btn-primary" data-t="hero_cta1">Explore Industries</a>
+      <a href="engage.html"    class="btn-ghost"   data-t="hero_cta2">Get in Touch</a>
+    </div>
+  </div>
+
+  <div class="hero-scroll">
+    <span>Scroll</span>
+    <div class="scroll-bar"></div>
+  </div>
+
+</section>
+
+<!-- ══ PROBLEM ══ -->
+<section class="problem-section">
+  <div class="inner">
+    <div class="section-label" data-t="problem_label">The Problem We Solve</div>
+    <h2 class="section-title animate" data-t="problem_title">Where Transactions <em>Break Down</em></h2>
+    <div class="problem-grid">
+      <div class="problem-card animate">
+        <div class="problem-num">01</div>
+        <h3 data-t="p1_title">Counterparty Trust Gap</h3>
+        <p data-t="p1_desc">Buyers and sellers in different jurisdictions lack the shared infrastructure to transact with confidence. VN Trade bridges that gap.</p>
+      </div>
+      <div class="problem-card animate">
+        <div class="problem-num">02</div>
+        <h3 data-t="p2_title">Documentation Complexity</h3>
+        <p data-t="p2_desc">LC structuring, bill of lading alignment, inspection clauses — a single mismatched term can delay or collapse a transaction.</p>
+      </div>
+      <div class="problem-card animate">
+        <div class="problem-num">03</div>
+        <h3 data-t="p3_title">Compliance Friction</h3>
+        <p data-t="p3_desc">Sanctions screening, KYC, end-use requirements, and regulatory conditions vary by corridor. We navigate these as standard.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ MARKET SIGNALS ══ -->
+<section class="signals-section">
+  <div class="inner">
+    <div class="signals-header">
+      <div>
+        <div class="section-label" data-t="signals_label">Market Signals</div>
+        <h2 class="section-title" data-t="signals_title">Corridor <em>Intelligence</em></h2>
+      </div>
+      <p class="signals-note" data-t="signals_sub">Directional commentary — updated weekly. No quoted prices. Informed perspective on the corridors we facilitate.</p>
+    </div>
+    <div class="signals-grid">
+      <div class="signal-tile animate">
+        <div class="signal-commodity"><span class="signal-dot"></span>Coal</div>
+        <p data-t="coal_signal">Stable to slightly soft. Demand-side pressure from delayed utility restocking across Indian sub-continent.</p>
+        <div class="signal-updated">Updated weekly</div>
+      </div>
+      <div class="signal-tile animate">
+        <div class="signal-commodity"><span class="signal-dot"></span>Fertilizers</div>
+        <p data-t="fert_signal">Urea firm. DAP seeing pre-Kharif accumulation. MOP stable across South Asia procurement windows.</p>
+        <div class="signal-updated">Updated weekly</div>
+      </div>
+      <div class="signal-tile animate">
+        <div class="signal-commodity"><span class="signal-dot"></span>Metals</div>
+        <p data-t="metals_signal">HRC subdued on China export overhang. Scrap tightening in GCC. Copper range-bound near-term.</p>
+        <div class="signal-updated">Updated weekly</div>
+      </div>
+      <div class="signal-tile animate">
+        <div class="signal-commodity"><span class="signal-dot"></span>Agri</div>
+        <p data-t="agri_signal">Pulse demand firm from GCC and EU buyers. Lentil origins tight — Canadian crop concerns supporting prices.</p>
+        <div class="signal-updated">Updated weekly</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ INDUSTRIES TEASER ══ -->
+<section class="portfolio-section">
+  <div class="inner">
+    <div class="portfolio-header">
+      <div>
+        <div class="section-label" data-t="portfolio_label">Industries We Cover</div>
+        <h2 class="section-title" data-t="portfolio_title">What We <em>Facilitate</em></h2>
+      </div>
+      <p class="portfolio-disclaimer" data-t="portfolio_sub">We do not hold title to any commodity. Principals transact directly.</p>
+    </div>
+    <div class="portfolio-grid">
+      <a href="portfolio.html#coal" class="ptile animate">
+        <span class="ptile-icon">⬛</span>
+        <div class="ptile-name">Coal</div>
+        <span class="ptile-tag">Indonesia · Russia · South Africa</span>
+        <p class="ptile-desc">Thermal coal facilitation across Indian sub-continent and GCC destinations.</p>
+        <span class="ptile-arrow">→</span>
+      </a>
+      <a href="portfolio.html#fertilizers" class="ptile animate">
+        <span class="ptile-icon">🌾</span>
+        <div class="ptile-name">Fertilizers</div>
+        <span class="ptile-tag">Urea · DAP · MOP</span>
+        <p class="ptile-desc">Fertilizer mandate facilitation into South Asia and GCC markets across pre-season and spot cycles.</p>
+        <span class="ptile-arrow">→</span>
+      </a>
+      <a href="portfolio.html#metals" class="ptile animate">
+        <span class="ptile-icon">⚙️</span>
+        <div class="ptile-name">Metals</div>
+        <span class="ptile-tag">HRC · Scrap · Copper · Aluminium</span>
+        <p class="ptile-desc">Steel and base metals facilitation for GCC construction and Indian manufacturing principals.</p>
+        <span class="ptile-arrow">→</span>
+      </a>
+      <a href="portfolio.html#agri" class="ptile animate">
+        <span class="ptile-icon">🌿</span>
+        <div class="ptile-name">Agri</div>
+        <span class="ptile-tag">Pulses · Lentils · Grains · Sugar</span>
+        <p class="ptile-desc">Agricultural facilitation into GCC, Southeast Asia and European markets with origin qualification.</p>
+        <span class="ptile-arrow">→</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PROCESS ══ -->
+<section class="process-strip">
+  <div class="inner">
+    <div class="section-label" data-t="process_label">How We Work</div>
+    <h2 class="section-title animate" data-t="process_title">From Mandate <em>to Settlement</em></h2>
+    <div class="process-steps">
+      <div class="process-step animate">
+        <div class="step-num">01</div>
+        <div class="step-name">Originate</div>
+        <p class="step-desc">Principal submits a buy or sell mandate. Feasibility, corridor fit and compliance clearance assessed.</p>
+      </div>
+      <div class="process-step animate">
+        <div class="step-num">02</div>
+        <div class="step-name">Structure</div>
+        <p class="step-desc">Counterparty identified and qualified. KYC, sanctions screening and term alignment completed.</p>
+      </div>
+      <div class="process-step animate">
+        <div class="step-num">03</div>
+        <div class="step-name">Execute</div>
+        <p class="step-desc">Documentation advisory, logistics coordination, LC management and inspection oversight handled.</p>
+      </div>
+      <div class="process-step animate">
+        <div class="step-num">04</div>
+        <div class="step-name">Settle</div>
+        <p class="step-desc">Document presentation, post-shipment support and transaction close. Principal identities protected throughout.</p>
+      </div>
+    </div>
+    <div class="process-footer">
+      <a href="process.html" class="btn-ghost" data-t="nav_process">Full Process Detail</a>
+      <a href="engage.html"  class="btn-primary" data-t="nav_cta">Get in Touch</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CTA STRIP ══ -->
+<section class="cta-strip">
+  <h2 class="animate" data-t="cta_title">Ready to Submit a Mandate?</h2>
+  <p class="animate" data-t="cta_sub">Buy-side or sell-side. All mandates reviewed within 48 hours.</p>
+  <div class="actions">
+    <a href="engage.html"    class="btn-primary" data-t="cta_btn">Get in Touch</a>
+    <a href="portfolio.html" class="btn-ghost"   data-t="cta_btn2">Explore Industries</a>
+  </div>
+</section>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-logo-block">
+        <a href="index.html" class="logo">
+          <span class="logo-vn">VN</span><div class="logo-rule"></div><span class="logo-trade">Trade</span>
+        </a>
+        <p data-t="footer_tagline">Connecting Principals. Orchestrating Trade.</p>
+      </div>
+      <div class="footer-col"><h4>Navigate</h4><ul>
+        <li><a href="portfolio.html" data-t="nav_portfolio">Industries</a></li>
+        <li><a href="process.html"   data-t="nav_process">What We Do</a></li>
+        <li><a href="about.html"     data-t="nav_about">Who We Are</a></li>
+        <li><a href="engage.html"    data-t="nav_engage">Contact</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Commodities</h4><ul>
+        <li><a href="portfolio.html#coal">Coal</a></li>
+        <li><a href="portfolio.html#fertilizers">Fertilizers</a></li>
+        <li><a href="portfolio.html#metals">Metals</a></li>
+        <li><a href="portfolio.html#agri">Agri</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Contact</h4><ul>
+        <li><a href="mailto:info@vntrade.in">info@vntrade.in</a></li>
+        <li><a href="https://www.linkedin.com/company/vntrade/" target="_blank" rel="noopener">LinkedIn</a></li>
+      </ul><br>
+      <p style="font-size:.75rem;color:var(--white-dim)" data-t="footer_gstin">GSTIN: [Placeholder]</p>
+      <p style="font-size:.75rem;color:var(--white-dim)" data-t="footer_udyam">Udyam: [Placeholder]</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy" data-t="footer_copy">© 2021–2025 VN Trade. Chennai, India.</p>
+      <p class="footer-disclaimer" data-t="footer_disclaimer">VN Trade provides trade facilitation services. We do not hold title to, or take physical ownership of, any commodity. All transactions are concluded directly between principals.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ── Video: fade in cleanly once enough data is loaded ──
+(function () {
+  const v = document.getElementById('heroVideo');
+  if (!v) return;
+
+  function showVideo() {
+    v.classList.add('loaded');
+  }
+
+  // If already has data, show immediately
+  if (v.readyState >= 3) {
+    showVideo();
+  } else {
+    v.addEventListener('canplay', showVideo, { once: true });
+    // If video errors (file missing), stay on fallback image — no action needed
+    v.addEventListener('error', function () {
+      v.style.display = 'none';
+    });
+  }
+})();
+</script>
+<script src="lang.js"></script>
+</body>
+</html>
