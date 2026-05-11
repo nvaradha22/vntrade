@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <rect width="32" height="32" fill="#07111E"/>
+  <text x="16" y="13" font-family="Georgia, serif" font-size="10" font-weight="500" fill="#F2EFE8" text-anchor="middle" letter-spacing="1">VN</text>
+  <line x1="6" y1="16" x2="26" y2="16" stroke="#B8962E" stroke-width="1"/>
+  <text x="16" y="24" font-family="Georgia, serif" font-size="6.5" fill="#B8962E" text-anchor="middle" letter-spacing="2">TRADE</text>
+</svg>
